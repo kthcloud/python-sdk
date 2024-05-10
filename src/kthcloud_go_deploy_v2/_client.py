@@ -95,7 +95,7 @@ class KthcloudGoDeployV2(SyncAPIClient):
         if base_url is None:
             base_url = os.environ.get("KTHCLOUD_GO_DEPLOY_V2_BASE_URL")
         if base_url is None:
-            base_url = f"https://api.cloud.cbh.kth.se/deploy/v2/"
+            base_url = f"https://api.cloud.cbh.kth.se/deploy/"
 
         super().__init__(
             version=__version__,
@@ -271,7 +271,7 @@ class AsyncKthcloudGoDeployV2(AsyncAPIClient):
         if base_url is None:
             base_url = os.environ.get("KTHCLOUD_GO_DEPLOY_V2_BASE_URL")
         if base_url is None:
-            base_url = f"https://api.cloud.cbh.kth.se/deploy/v2/"
+            base_url = f"https://api.cloud.cbh.kth.se/deploy/"
 
         super().__init__(
             version=__version__,
