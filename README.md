@@ -1,6 +1,6 @@
 # Kthcloud Go Deploy V2 Python API library
 
-[![PyPI version](https://img.shields.io/pypi/v/kthcloud-go-deploy-v2.svg)](https://pypi.org/project/kthcloud-go-deploy-v2/)
+[![PyPI version](https://img.shields.io/pypi/v/kthcloud.svg)](https://pypi.org/project/kthcloud/)
 
 The Kthcloud Go Deploy V2 Python library provides convenient access to the Kthcloud Go Deploy V2 REST API from any Python 3.7+
 application. The library includes type definitions for all request params and response fields,
@@ -15,12 +15,9 @@ The REST API documentation can be found [on github.com](https://github.com/kthcl
 ## Installation
 
 ```sh
-# install from the production repo
-pip install git+ssh://git@github.com/kthcloud/python-sdk.git
+# install from PyPI
+pip install --pre kthcloud
 ```
-
-> [!NOTE]
-> Once this package is [published to PyPI](https://app.stainlessapi.com/docs/guides/publish), this will become: `pip install --pre kthcloud-go-deploy-v2`
 
 ## Usage
 
