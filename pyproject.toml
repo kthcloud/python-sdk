@@ -1,11 +1,11 @@
 [project]
 name = "kthcloud"
-version = "0.0.1-alpha"
+version = "0.1.0-alpha"
 description = "The official Python library for the kthcloud-go-deploy-v2 API"
 dynamic = ["readme"]
 license = "Apache-2.0"
 authors = [
-{ name = "Kthcloud Go Deploy V2", email = "dev-feedback@kthcloud-go-deploy-v2.com" },
+{ name = "Kthcloud Go Deploy V2", email = "dev@cloud.cbh.kth.se" },
 ]
 dependencies = [
     "httpx>=0.23.0, <1",
