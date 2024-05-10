@@ -40,7 +40,7 @@ print(vm_created.id)
 
 While you can provide an `api_key` keyword argument,
 we recommend using [python-dotenv](https://pypi.org/project/python-dotenv/)
-to add `KTHCLOUD_GO_DEPLOY_V2_API_KEY="My API Key"` to your `.env` file
+to add `KTHCLOUD_API_KEY="My API Key"` to your `.env` file
 so that your API Key is not stored in source control.
 
 ## Async usage

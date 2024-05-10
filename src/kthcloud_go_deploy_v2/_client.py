@@ -82,20 +82,20 @@ class KthcloudGoDeployV2(SyncAPIClient):
     ) -> None:
         """Construct a new synchronous kthcloud-go-deploy-v2 client instance.
 
-        This automatically infers the `api_key` argument from the `KTHCLOUD_GO_DEPLOY_V2_API_KEY` environment variable if it is not provided.
+        This automatically infers the `api_key` argument from the `KTHCLOUD_API_KEY` environment variable if it is not provided.
         """
         if api_key is None:
-            api_key = os.environ.get("KTHCLOUD_GO_DEPLOY_V2_API_KEY")
+            api_key = os.environ.get("KTHCLOUD_API_KEY")
         if api_key is None:
             raise KthcloudGoDeployV2Error(
-                "The api_key client option must be set either by passing api_key to the client or by setting the KTHCLOUD_GO_DEPLOY_V2_API_KEY environment variable"
+                "The api_key client option must be set either by passing api_key to the client or by setting the KTHCLOUD_API_KEY environment variable"
             )
         self.api_key = api_key
 
         if base_url is None:
             base_url = os.environ.get("KTHCLOUD_GO_DEPLOY_V2_BASE_URL")
         if base_url is None:
-            base_url = f"/"
+            base_url = f"https://api.cloud.cbh.kth.se/deploy/v2/"
 
         super().__init__(
             version=__version__,
@@ -258,20 +258,20 @@ class AsyncKthcloudGoDeployV2(AsyncAPIClient):
     ) -> None:
         """Construct a new async kthcloud-go-deploy-v2 client instance.
 
-        This automatically infers the `api_key` argument from the `KTHCLOUD_GO_DEPLOY_V2_API_KEY` environment variable if it is not provided.
+        This automatically infers the `api_key` argument from the `KTHCLOUD_API_KEY` environment variable if it is not provided.
         """
         if api_key is None:
-            api_key = os.environ.get("KTHCLOUD_GO_DEPLOY_V2_API_KEY")
+            api_key = os.environ.get("KTHCLOUD_API_KEY")
         if api_key is None:
             raise KthcloudGoDeployV2Error(
-                "The api_key client option must be set either by passing api_key to the client or by setting the KTHCLOUD_GO_DEPLOY_V2_API_KEY environment variable"
+                "The api_key client option must be set either by passing api_key to the client or by setting the KTHCLOUD_API_KEY environment variable"
             )
         self.api_key = api_key
 
         if base_url is None:
             base_url = os.environ.get("KTHCLOUD_GO_DEPLOY_V2_BASE_URL")
         if base_url is None:
-            base_url = f"/"
+            base_url = f"https://api.cloud.cbh.kth.se/deploy/v2/"
 
         super().__init__(
             version=__version__,
