@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.0-alpha (2024-05-10)
+
+Full Changelog: [v0.1.0-alpha...v0.2.0-alpha](https://github.com/kthcloud/python-sdk/compare/v0.1.0-alpha...v0.2.0-alpha)
+
+### Features
+
+* Update README.md ([407ec48](https://github.com/kthcloud/python-sdk/commit/407ec4851977795c4201018ed69f267c4a53dca5))
+
 ## 0.1.0-alpha (2024-05-10)
 
 Full Changelog: [v0.0.1-alpha...v0.1.0-alpha](https://github.com/kthcloud/python-sdk/compare/v0.0.1-alpha...v0.1.0-alpha)
