@@ -8,8 +8,8 @@ from typing import Any, TypeVar, Iterator, cast
 from datetime import date, datetime
 from typing_extensions import Literal, get_args, get_origin, assert_type
 
-from kthcloud_go_deploy_v2._types import NoneType
-from kthcloud_go_deploy_v2._utils import (
+from kthcloud_go_deploy_v_._types import NoneType
+from kthcloud_go_deploy_v_._utils import (
     is_dict,
     is_list,
     is_list_type,
@@ -17,8 +17,8 @@ from kthcloud_go_deploy_v2._utils import (
     extract_type_arg,
     is_annotated_type,
 )
-from kthcloud_go_deploy_v2._compat import PYDANTIC_V2, field_outer_type, get_model_fields
-from kthcloud_go_deploy_v2._models import BaseModel
+from kthcloud_go_deploy_v_._compat import PYDANTIC_V2, field_outer_type, get_model_fields
+from kthcloud_go_deploy_v_._models import BaseModel
 
 BaseModelT = TypeVar("BaseModelT", bound=BaseModel)
 

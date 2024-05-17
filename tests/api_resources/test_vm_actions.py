@@ -8,8 +8,8 @@ from typing import Any, cast
 import pytest
 
 from tests.utils import assert_matches_type
-from kthcloud_go_deploy_v2 import KthcloudGoDeployV2, AsyncKthcloudGoDeployV2
-from kthcloud_go_deploy_v2.types import VmActionCreated
+from kthcloud_go_deploy_v_ import KthcloudGoDeployV2, AsyncKthcloudGoDeployV2
+from kthcloud_go_deploy_v_.types import VmActionCreated
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 

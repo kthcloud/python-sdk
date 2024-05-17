@@ -6,10 +6,10 @@ from typing_extensions import Required, Annotated, TypedDict
 
 from .._utils import PropertyInfo
 
-__all__ = ["GpuLeaseCreateParams"]
+__all__ = ["GPULeaseCreateParams"]
 
 
-class GpuLeaseCreateParams(TypedDict, total=False):
+class GPULeaseCreateParams(TypedDict, total=False):
     gpu_group_id: Required[Annotated[str, PropertyInfo(alias="gpuGroupId")]]
     """
     GpuGroupID is used to specify the GPU to lease. As such, the lease does not

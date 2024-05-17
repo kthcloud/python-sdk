@@ -21,20 +21,20 @@ from .._response import (
 from .._base_client import (
     make_request_options,
 )
-from ..types.gpu_group import GpuGroup
-from ..types.gpu_group_list_response import GpuGroupListResponse
+from ..types.gpu_group import GPUGroup
+from ..types.gpu_group_list_response import GPUGroupListResponse
 
-__all__ = ["GpuGroupsResource", "AsyncGpuGroupsResource"]
+__all__ = ["GPUGroupsResource", "AsyncGPUGroupsResource"]
 
 
-class GpuGroupsResource(SyncAPIResource):
+class GPUGroupsResource(SyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> GpuGroupsResourceWithRawResponse:
-        return GpuGroupsResourceWithRawResponse(self)
+    def with_raw_response(self) -> GPUGroupsResourceWithRawResponse:
+        return GPUGroupsResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> GpuGroupsResourceWithStreamingResponse:
-        return GpuGroupsResourceWithStreamingResponse(self)
+    def with_streaming_response(self) -> GPUGroupsResourceWithStreamingResponse:
+        return GPUGroupsResourceWithStreamingResponse(self)
 
     def retrieve(
         self,
@@ -46,7 +46,7 @@ class GpuGroupsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> GpuGroup:
+    ) -> GPUGroup:
         """
         Get GPU group
 
@@ -66,7 +66,7 @@ class GpuGroupsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=GpuGroup,
+            cast_to=GPUGroup,
         )
 
     def list(
@@ -80,7 +80,7 @@ class GpuGroupsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> GpuGroupListResponse:
+    ) -> GPUGroupListResponse:
         """
         List GPU groups
 
@@ -109,21 +109,21 @@ class GpuGroupsResource(SyncAPIResource):
                         "page": page,
                         "page_size": page_size,
                     },
-                    gpu_group_list_params.GpuGroupListParams,
+                    gpu_group_list_params.GPUGroupListParams,
                 ),
             ),
-            cast_to=GpuGroupListResponse,
+            cast_to=GPUGroupListResponse,
         )
 
 
-class AsyncGpuGroupsResource(AsyncAPIResource):
+class AsyncGPUGroupsResource(AsyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> AsyncGpuGroupsResourceWithRawResponse:
-        return AsyncGpuGroupsResourceWithRawResponse(self)
+    def with_raw_response(self) -> AsyncGPUGroupsResourceWithRawResponse:
+        return AsyncGPUGroupsResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> AsyncGpuGroupsResourceWithStreamingResponse:
-        return AsyncGpuGroupsResourceWithStreamingResponse(self)
+    def with_streaming_response(self) -> AsyncGPUGroupsResourceWithStreamingResponse:
+        return AsyncGPUGroupsResourceWithStreamingResponse(self)
 
     async def retrieve(
         self,
@@ -135,7 +135,7 @@ class AsyncGpuGroupsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> GpuGroup:
+    ) -> GPUGroup:
         """
         Get GPU group
 
@@ -155,7 +155,7 @@ class AsyncGpuGroupsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=GpuGroup,
+            cast_to=GPUGroup,
         )
 
     async def list(
@@ -169,7 +169,7 @@ class AsyncGpuGroupsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> GpuGroupListResponse:
+    ) -> GPUGroupListResponse:
         """
         List GPU groups
 
@@ -198,15 +198,15 @@ class AsyncGpuGroupsResource(AsyncAPIResource):
                         "page": page,
                         "page_size": page_size,
                     },
-                    gpu_group_list_params.GpuGroupListParams,
+                    gpu_group_list_params.GPUGroupListParams,
                 ),
             ),
-            cast_to=GpuGroupListResponse,
+            cast_to=GPUGroupListResponse,
         )
 
 
-class GpuGroupsResourceWithRawResponse:
-    def __init__(self, gpu_groups: GpuGroupsResource) -> None:
+class GPUGroupsResourceWithRawResponse:
+    def __init__(self, gpu_groups: GPUGroupsResource) -> None:
         self._gpu_groups = gpu_groups
 
         self.retrieve = to_raw_response_wrapper(
@@ -217,8 +217,8 @@ class GpuGroupsResourceWithRawResponse:
         )
 
 
-class AsyncGpuGroupsResourceWithRawResponse:
-    def __init__(self, gpu_groups: AsyncGpuGroupsResource) -> None:
+class AsyncGPUGroupsResourceWithRawResponse:
+    def __init__(self, gpu_groups: AsyncGPUGroupsResource) -> None:
         self._gpu_groups = gpu_groups
 
         self.retrieve = async_to_raw_response_wrapper(
@@ -229,8 +229,8 @@ class AsyncGpuGroupsResourceWithRawResponse:
         )
 
 
-class GpuGroupsResourceWithStreamingResponse:
-    def __init__(self, gpu_groups: GpuGroupsResource) -> None:
+class GPUGroupsResourceWithStreamingResponse:
+    def __init__(self, gpu_groups: GPUGroupsResource) -> None:
         self._gpu_groups = gpu_groups
 
         self.retrieve = to_streamed_response_wrapper(
@@ -241,8 +241,8 @@ class GpuGroupsResourceWithStreamingResponse:
         )
 
 
-class AsyncGpuGroupsResourceWithStreamingResponse:
-    def __init__(self, gpu_groups: AsyncGpuGroupsResource) -> None:
+class AsyncGPUGroupsResourceWithStreamingResponse:
+    def __init__(self, gpu_groups: AsyncGPUGroupsResource) -> None:
         self._gpu_groups = gpu_groups
 
         self.retrieve = async_to_streamed_response_wrapper(

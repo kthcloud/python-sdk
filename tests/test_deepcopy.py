@@ -1,4 +1,4 @@
-from kthcloud_go_deploy_v2._utils import deepcopy_minimal
+from kthcloud_go_deploy_v_._utils import deepcopy_minimal
 
 
 def assert_different_identities(obj1: object, obj2: object) -> None:

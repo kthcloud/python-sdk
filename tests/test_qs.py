@@ -4,7 +4,7 @@ from urllib.parse import unquote
 
 import pytest
 
-from kthcloud_go_deploy_v2._qs import Querystring, stringify
+from kthcloud_go_deploy_v_._qs import Querystring, stringify
 
 
 def test_empty() -> None:

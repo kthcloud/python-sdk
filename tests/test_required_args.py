@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import pytest
 
-from kthcloud_go_deploy_v2._utils import required_args
+from kthcloud_go_deploy_v_._utils import required_args
 
 
 def test_too_many_positional_params() -> None:
