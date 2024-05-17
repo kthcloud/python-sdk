@@ -46,8 +46,8 @@ __all__ = [
 
 
 class KthcloudGoDeployV2(SyncAPIClient):
-    gpu_groups: resources.GpuGroupsResource
-    gpu_leases: resources.GpuLeasesResource
+    gpu_groups: resources.GPUGroupsResource
+    gpu_leases: resources.GPULeasesResource
     snapshots: resources.SnapshotsResource
     vm_actions: resources.VmActionsResource
     vms: resources.VmsResource
@@ -108,8 +108,8 @@ class KthcloudGoDeployV2(SyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.gpu_groups = resources.GpuGroupsResource(self)
-        self.gpu_leases = resources.GpuLeasesResource(self)
+        self.gpu_groups = resources.GPUGroupsResource(self)
+        self.gpu_leases = resources.GPULeasesResource(self)
         self.snapshots = resources.SnapshotsResource(self)
         self.vm_actions = resources.VmActionsResource(self)
         self.vms = resources.VmsResource(self)
@@ -222,8 +222,8 @@ class KthcloudGoDeployV2(SyncAPIClient):
 
 
 class AsyncKthcloudGoDeployV2(AsyncAPIClient):
-    gpu_groups: resources.AsyncGpuGroupsResource
-    gpu_leases: resources.AsyncGpuLeasesResource
+    gpu_groups: resources.AsyncGPUGroupsResource
+    gpu_leases: resources.AsyncGPULeasesResource
     snapshots: resources.AsyncSnapshotsResource
     vm_actions: resources.AsyncVmActionsResource
     vms: resources.AsyncVmsResource
@@ -284,8 +284,8 @@ class AsyncKthcloudGoDeployV2(AsyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.gpu_groups = resources.AsyncGpuGroupsResource(self)
-        self.gpu_leases = resources.AsyncGpuLeasesResource(self)
+        self.gpu_groups = resources.AsyncGPUGroupsResource(self)
+        self.gpu_leases = resources.AsyncGPULeasesResource(self)
         self.snapshots = resources.AsyncSnapshotsResource(self)
         self.vm_actions = resources.AsyncVmActionsResource(self)
         self.vms = resources.AsyncVmsResource(self)
@@ -399,8 +399,8 @@ class AsyncKthcloudGoDeployV2(AsyncAPIClient):
 
 class KthcloudGoDeployV2WithRawResponse:
     def __init__(self, client: KthcloudGoDeployV2) -> None:
-        self.gpu_groups = resources.GpuGroupsResourceWithRawResponse(client.gpu_groups)
-        self.gpu_leases = resources.GpuLeasesResourceWithRawResponse(client.gpu_leases)
+        self.gpu_groups = resources.GPUGroupsResourceWithRawResponse(client.gpu_groups)
+        self.gpu_leases = resources.GPULeasesResourceWithRawResponse(client.gpu_leases)
         self.snapshots = resources.SnapshotsResourceWithRawResponse(client.snapshots)
         self.vm_actions = resources.VmActionsResourceWithRawResponse(client.vm_actions)
         self.vms = resources.VmsResourceWithRawResponse(client.vms)
@@ -408,8 +408,8 @@ class KthcloudGoDeployV2WithRawResponse:
 
 class AsyncKthcloudGoDeployV2WithRawResponse:
     def __init__(self, client: AsyncKthcloudGoDeployV2) -> None:
-        self.gpu_groups = resources.AsyncGpuGroupsResourceWithRawResponse(client.gpu_groups)
-        self.gpu_leases = resources.AsyncGpuLeasesResourceWithRawResponse(client.gpu_leases)
+        self.gpu_groups = resources.AsyncGPUGroupsResourceWithRawResponse(client.gpu_groups)
+        self.gpu_leases = resources.AsyncGPULeasesResourceWithRawResponse(client.gpu_leases)
         self.snapshots = resources.AsyncSnapshotsResourceWithRawResponse(client.snapshots)
         self.vm_actions = resources.AsyncVmActionsResourceWithRawResponse(client.vm_actions)
         self.vms = resources.AsyncVmsResourceWithRawResponse(client.vms)
@@ -417,8 +417,8 @@ class AsyncKthcloudGoDeployV2WithRawResponse:
 
 class KthcloudGoDeployV2WithStreamedResponse:
     def __init__(self, client: KthcloudGoDeployV2) -> None:
-        self.gpu_groups = resources.GpuGroupsResourceWithStreamingResponse(client.gpu_groups)
-        self.gpu_leases = resources.GpuLeasesResourceWithStreamingResponse(client.gpu_leases)
+        self.gpu_groups = resources.GPUGroupsResourceWithStreamingResponse(client.gpu_groups)
+        self.gpu_leases = resources.GPULeasesResourceWithStreamingResponse(client.gpu_leases)
         self.snapshots = resources.SnapshotsResourceWithStreamingResponse(client.snapshots)
         self.vm_actions = resources.VmActionsResourceWithStreamingResponse(client.vm_actions)
         self.vms = resources.VmsResourceWithStreamingResponse(client.vms)
@@ -426,8 +426,8 @@ class KthcloudGoDeployV2WithStreamedResponse:
 
 class AsyncKthcloudGoDeployV2WithStreamedResponse:
     def __init__(self, client: AsyncKthcloudGoDeployV2) -> None:
-        self.gpu_groups = resources.AsyncGpuGroupsResourceWithStreamingResponse(client.gpu_groups)
-        self.gpu_leases = resources.AsyncGpuLeasesResourceWithStreamingResponse(client.gpu_leases)
+        self.gpu_groups = resources.AsyncGPUGroupsResourceWithStreamingResponse(client.gpu_groups)
+        self.gpu_leases = resources.AsyncGPULeasesResourceWithStreamingResponse(client.gpu_leases)
         self.snapshots = resources.AsyncSnapshotsResourceWithStreamingResponse(client.snapshots)
         self.vm_actions = resources.AsyncVmActionsResourceWithStreamingResponse(client.vm_actions)
         self.vms = resources.AsyncVmsResourceWithStreamingResponse(client.vms)

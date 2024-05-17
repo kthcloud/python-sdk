@@ -8,8 +8,8 @@ from typing import Any, cast
 import pytest
 
 from tests.utils import assert_matches_type
-from kthcloud_go_deploy_v2 import KthcloudGoDeployV2, AsyncKthcloudGoDeployV2
-from kthcloud_go_deploy_v2.types import (
+from kthcloud_go_deploy_v_ import KthcloudGoDeployV2, AsyncKthcloudGoDeployV2
+from kthcloud_go_deploy_v_.types import (
     VmRead,
     VmCreated,
     VmDeleted,

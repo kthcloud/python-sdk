@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Generic, TypeVar, cast
 
-from kthcloud_go_deploy_v2._utils import extract_type_var_from_base
+from kthcloud_go_deploy_v_._utils import extract_type_var_from_base
 
 _T = TypeVar("_T")
 _T2 = TypeVar("_T2")

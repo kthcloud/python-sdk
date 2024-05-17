@@ -6,10 +6,10 @@ from typing_extensions import Annotated, TypedDict
 
 from .._utils import PropertyInfo
 
-__all__ = ["GpuLeaseUpdateParams"]
+__all__ = ["GPULeaseUpdateParams"]
 
 
-class GpuLeaseUpdateParams(TypedDict, total=False):
+class GPULeaseUpdateParams(TypedDict, total=False):
     vm_id: Annotated[str, PropertyInfo(alias="vmId")]
     """VmID is used to specify the VM to attach the lease to.
 
