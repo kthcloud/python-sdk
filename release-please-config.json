@@ -61,6 +61,6 @@
   ],
   "release-type": "python",
   "extra-files": [
-    "src/kthcloud_go_deploy_v2/_version.py"
+    "src/kthcloud_go_deploy_v_/_version.py"
   ]
 }

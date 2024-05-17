@@ -6,10 +6,10 @@ from pydantic import Field as FieldInfo
 
 from .._models import BaseModel
 
-__all__ = ["GpuGroup"]
+__all__ = ["GPUGroup"]
 
 
-class GpuGroup(BaseModel):
+class GPUGroup(BaseModel):
     id: Optional[str] = None
 
     available: Optional[int] = None

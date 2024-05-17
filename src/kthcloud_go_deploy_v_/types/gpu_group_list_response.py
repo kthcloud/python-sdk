@@ -2,8 +2,8 @@
 
 from typing import List
 
-from .gpu_group import GpuGroup
+from .gpu_group import GPUGroup
 
-__all__ = ["GpuGroupListResponse"]
+__all__ = ["GPUGroupListResponse"]
 
-GpuGroupListResponse = List[GpuGroup]
+GPUGroupListResponse = List[GPUGroup]

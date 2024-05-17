@@ -6,10 +6,10 @@ from pydantic import Field as FieldInfo
 
 from .._models import BaseModel
 
-__all__ = ["GpuLeaseUpdated"]
+__all__ = ["GPULeaseUpdated"]
 
 
-class GpuLeaseUpdated(BaseModel):
+class GPULeaseUpdated(BaseModel):
     id: Optional[str] = None
 
     job_id: Optional[str] = FieldInfo(alias="jobId", default=None)

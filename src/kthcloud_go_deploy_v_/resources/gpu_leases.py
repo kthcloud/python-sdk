@@ -21,23 +21,23 @@ from .._response import (
 from .._base_client import (
     make_request_options,
 )
-from ..types.gpu_lease_read import GpuLeaseRead
-from ..types.gpu_lease_created import GpuLeaseCreated
-from ..types.gpu_lease_deleted import GpuLeaseDeleted
-from ..types.gpu_lease_updated import GpuLeaseUpdated
-from ..types.gpu_lease_list_response import GpuLeaseListResponse
+from ..types.gpu_lease_read import GPULeaseRead
+from ..types.gpu_lease_created import GPULeaseCreated
+from ..types.gpu_lease_deleted import GPULeaseDeleted
+from ..types.gpu_lease_updated import GPULeaseUpdated
+from ..types.gpu_lease_list_response import GPULeaseListResponse
 
-__all__ = ["GpuLeasesResource", "AsyncGpuLeasesResource"]
+__all__ = ["GPULeasesResource", "AsyncGPULeasesResource"]
 
 
-class GpuLeasesResource(SyncAPIResource):
+class GPULeasesResource(SyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> GpuLeasesResourceWithRawResponse:
-        return GpuLeasesResourceWithRawResponse(self)
+    def with_raw_response(self) -> GPULeasesResourceWithRawResponse:
+        return GPULeasesResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> GpuLeasesResourceWithStreamingResponse:
-        return GpuLeasesResourceWithStreamingResponse(self)
+    def with_streaming_response(self) -> GPULeasesResourceWithStreamingResponse:
+        return GPULeasesResourceWithStreamingResponse(self)
 
     def create(
         self,
@@ -50,7 +50,7 @@ class GpuLeasesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> GpuLeaseCreated:
+    ) -> GPULeaseCreated:
         """
         Create GPU lease
 
@@ -75,12 +75,12 @@ class GpuLeasesResource(SyncAPIResource):
                     "gpu_group_id": gpu_group_id,
                     "lease_forever": lease_forever,
                 },
-                gpu_lease_create_params.GpuLeaseCreateParams,
+                gpu_lease_create_params.GPULeaseCreateParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=GpuLeaseCreated,
+            cast_to=GPULeaseCreated,
         )
 
     def retrieve(
@@ -93,7 +93,7 @@ class GpuLeasesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> GpuLeaseRead:
+    ) -> GPULeaseRead:
         """
         Get GPU lease
 
@@ -113,7 +113,7 @@ class GpuLeasesResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=GpuLeaseRead,
+            cast_to=GPULeaseRead,
         )
 
     def update(
@@ -127,7 +127,7 @@ class GpuLeasesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> GpuLeaseUpdated:
+    ) -> GPULeaseUpdated:
         """
         Update GPU lease
 
@@ -155,11 +155,11 @@ class GpuLeasesResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `gpu_lease_id` but received {gpu_lease_id!r}")
         return self._post(
             f"/v2/gpuLeases/{gpu_lease_id}",
-            body=maybe_transform({"vm_id": vm_id}, gpu_lease_update_params.GpuLeaseUpdateParams),
+            body=maybe_transform({"vm_id": vm_id}, gpu_lease_update_params.GPULeaseUpdateParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=GpuLeaseUpdated,
+            cast_to=GPULeaseUpdated,
         )
 
     def list(
@@ -175,7 +175,7 @@ class GpuLeasesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> GpuLeaseListResponse:
+    ) -> GPULeaseListResponse:
         """
         List GPU leases
 
@@ -210,10 +210,10 @@ class GpuLeasesResource(SyncAPIResource):
                         "page_size": page_size,
                         "vm_id": vm_id,
                     },
-                    gpu_lease_list_params.GpuLeaseListParams,
+                    gpu_lease_list_params.GPULeaseListParams,
                 ),
             ),
-            cast_to=GpuLeaseListResponse,
+            cast_to=GPULeaseListResponse,
         )
 
     def delete(
@@ -226,7 +226,7 @@ class GpuLeasesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> GpuLeaseDeleted:
+    ) -> GPULeaseDeleted:
         """
         Delete GPU lease
 
@@ -246,18 +246,18 @@ class GpuLeasesResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=GpuLeaseDeleted,
+            cast_to=GPULeaseDeleted,
         )
 
 
-class AsyncGpuLeasesResource(AsyncAPIResource):
+class AsyncGPULeasesResource(AsyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> AsyncGpuLeasesResourceWithRawResponse:
-        return AsyncGpuLeasesResourceWithRawResponse(self)
+    def with_raw_response(self) -> AsyncGPULeasesResourceWithRawResponse:
+        return AsyncGPULeasesResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> AsyncGpuLeasesResourceWithStreamingResponse:
-        return AsyncGpuLeasesResourceWithStreamingResponse(self)
+    def with_streaming_response(self) -> AsyncGPULeasesResourceWithStreamingResponse:
+        return AsyncGPULeasesResourceWithStreamingResponse(self)
 
     async def create(
         self,
@@ -270,7 +270,7 @@ class AsyncGpuLeasesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> GpuLeaseCreated:
+    ) -> GPULeaseCreated:
         """
         Create GPU lease
 
@@ -295,12 +295,12 @@ class AsyncGpuLeasesResource(AsyncAPIResource):
                     "gpu_group_id": gpu_group_id,
                     "lease_forever": lease_forever,
                 },
-                gpu_lease_create_params.GpuLeaseCreateParams,
+                gpu_lease_create_params.GPULeaseCreateParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=GpuLeaseCreated,
+            cast_to=GPULeaseCreated,
         )
 
     async def retrieve(
@@ -313,7 +313,7 @@ class AsyncGpuLeasesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> GpuLeaseRead:
+    ) -> GPULeaseRead:
         """
         Get GPU lease
 
@@ -333,7 +333,7 @@ class AsyncGpuLeasesResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=GpuLeaseRead,
+            cast_to=GPULeaseRead,
         )
 
     async def update(
@@ -347,7 +347,7 @@ class AsyncGpuLeasesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> GpuLeaseUpdated:
+    ) -> GPULeaseUpdated:
         """
         Update GPU lease
 
@@ -375,11 +375,11 @@ class AsyncGpuLeasesResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `gpu_lease_id` but received {gpu_lease_id!r}")
         return await self._post(
             f"/v2/gpuLeases/{gpu_lease_id}",
-            body=await async_maybe_transform({"vm_id": vm_id}, gpu_lease_update_params.GpuLeaseUpdateParams),
+            body=await async_maybe_transform({"vm_id": vm_id}, gpu_lease_update_params.GPULeaseUpdateParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=GpuLeaseUpdated,
+            cast_to=GPULeaseUpdated,
         )
 
     async def list(
@@ -395,7 +395,7 @@ class AsyncGpuLeasesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> GpuLeaseListResponse:
+    ) -> GPULeaseListResponse:
         """
         List GPU leases
 
@@ -430,10 +430,10 @@ class AsyncGpuLeasesResource(AsyncAPIResource):
                         "page_size": page_size,
                         "vm_id": vm_id,
                     },
-                    gpu_lease_list_params.GpuLeaseListParams,
+                    gpu_lease_list_params.GPULeaseListParams,
                 ),
             ),
-            cast_to=GpuLeaseListResponse,
+            cast_to=GPULeaseListResponse,
         )
 
     async def delete(
@@ -446,7 +446,7 @@ class AsyncGpuLeasesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> GpuLeaseDeleted:
+    ) -> GPULeaseDeleted:
         """
         Delete GPU lease
 
@@ -466,12 +466,12 @@ class AsyncGpuLeasesResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=GpuLeaseDeleted,
+            cast_to=GPULeaseDeleted,
         )
 
 
-class GpuLeasesResourceWithRawResponse:
-    def __init__(self, gpu_leases: GpuLeasesResource) -> None:
+class GPULeasesResourceWithRawResponse:
+    def __init__(self, gpu_leases: GPULeasesResource) -> None:
         self._gpu_leases = gpu_leases
 
         self.create = to_raw_response_wrapper(
@@ -491,8 +491,8 @@ class GpuLeasesResourceWithRawResponse:
         )
 
 
-class AsyncGpuLeasesResourceWithRawResponse:
-    def __init__(self, gpu_leases: AsyncGpuLeasesResource) -> None:
+class AsyncGPULeasesResourceWithRawResponse:
+    def __init__(self, gpu_leases: AsyncGPULeasesResource) -> None:
         self._gpu_leases = gpu_leases
 
         self.create = async_to_raw_response_wrapper(
@@ -512,8 +512,8 @@ class AsyncGpuLeasesResourceWithRawResponse:
         )
 
 
-class GpuLeasesResourceWithStreamingResponse:
-    def __init__(self, gpu_leases: GpuLeasesResource) -> None:
+class GPULeasesResourceWithStreamingResponse:
+    def __init__(self, gpu_leases: GPULeasesResource) -> None:
         self._gpu_leases = gpu_leases
 
         self.create = to_streamed_response_wrapper(
@@ -533,8 +533,8 @@ class GpuLeasesResourceWithStreamingResponse:
         )
 
 
-class AsyncGpuLeasesResourceWithStreamingResponse:
-    def __init__(self, gpu_leases: AsyncGpuLeasesResource) -> None:
+class AsyncGPULeasesResourceWithStreamingResponse:
+    def __init__(self, gpu_leases: AsyncGPULeasesResource) -> None:
         self._gpu_leases = gpu_leases
 
         self.create = async_to_streamed_response_wrapper(

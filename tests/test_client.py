@@ -16,11 +16,11 @@ import pytest
 from respx import MockRouter
 from pydantic import ValidationError
 
-from kthcloud_go_deploy_v2 import KthcloudGoDeployV2, AsyncKthcloudGoDeployV2, APIResponseValidationError
-from kthcloud_go_deploy_v2._models import BaseModel, FinalRequestOptions
-from kthcloud_go_deploy_v2._constants import RAW_RESPONSE_HEADER
-from kthcloud_go_deploy_v2._exceptions import APIStatusError, APITimeoutError, APIResponseValidationError
-from kthcloud_go_deploy_v2._base_client import (
+from kthcloud_go_deploy_v_ import KthcloudGoDeployV2, AsyncKthcloudGoDeployV2, APIResponseValidationError
+from kthcloud_go_deploy_v_._models import BaseModel, FinalRequestOptions
+from kthcloud_go_deploy_v_._constants import RAW_RESPONSE_HEADER
+from kthcloud_go_deploy_v_._exceptions import APIStatusError, APITimeoutError, APIResponseValidationError
+from kthcloud_go_deploy_v_._base_client import (
     DEFAULT_TIMEOUT,
     HTTPX_DEFAULT_TIMEOUT,
     BaseClient,
@@ -224,10 +224,10 @@ class TestKthcloudGoDeployV2:
                         # to_raw_response_wrapper leaks through the @functools.wraps() decorator.
                         #
                         # removing the decorator fixes the leak for reasons we don't understand.
-                        "kthcloud_go_deploy_v2/_legacy_response.py",
-                        "kthcloud_go_deploy_v2/_response.py",
+                        "kthcloud_go_deploy_v_/_legacy_response.py",
+                        "kthcloud_go_deploy_v_/_response.py",
                         # pydantic.BaseModel.model_dump || pydantic.BaseModel.dict leak memory for some reason.
-                        "kthcloud_go_deploy_v2/_compat.py",
+                        "kthcloud_go_deploy_v_/_compat.py",
                         # Standard library leaks we don't care about.
                         "/logging/__init__.py",
                     ]
@@ -702,7 +702,7 @@ class TestKthcloudGoDeployV2:
         calculated = client._calculate_retry_timeout(remaining_retries, options, headers)
         assert calculated == pytest.approx(timeout, 0.5 * 0.875)  # pyright: ignore[reportUnknownMemberType]
 
-    @mock.patch("kthcloud_go_deploy_v2._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("kthcloud_go_deploy_v_._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
         respx_mock.post("/v2/vms").mock(side_effect=httpx.TimeoutException("Test timeout error"))
@@ -717,7 +717,7 @@ class TestKthcloudGoDeployV2:
 
         assert _get_open_connections(self.client) == 0
 
-    @mock.patch("kthcloud_go_deploy_v2._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("kthcloud_go_deploy_v_._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
         respx_mock.post("/v2/vms").mock(return_value=httpx.Response(500))
@@ -908,10 +908,10 @@ class TestAsyncKthcloudGoDeployV2:
                         # to_raw_response_wrapper leaks through the @functools.wraps() decorator.
                         #
                         # removing the decorator fixes the leak for reasons we don't understand.
-                        "kthcloud_go_deploy_v2/_legacy_response.py",
-                        "kthcloud_go_deploy_v2/_response.py",
+                        "kthcloud_go_deploy_v_/_legacy_response.py",
+                        "kthcloud_go_deploy_v_/_response.py",
                         # pydantic.BaseModel.model_dump || pydantic.BaseModel.dict leak memory for some reason.
-                        "kthcloud_go_deploy_v2/_compat.py",
+                        "kthcloud_go_deploy_v_/_compat.py",
                         # Standard library leaks we don't care about.
                         "/logging/__init__.py",
                     ]
@@ -1390,7 +1390,7 @@ class TestAsyncKthcloudGoDeployV2:
         calculated = client._calculate_retry_timeout(remaining_retries, options, headers)
         assert calculated == pytest.approx(timeout, 0.5 * 0.875)  # pyright: ignore[reportUnknownMemberType]
 
-    @mock.patch("kthcloud_go_deploy_v2._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("kthcloud_go_deploy_v_._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     async def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
         respx_mock.post("/v2/vms").mock(side_effect=httpx.TimeoutException("Test timeout error"))
@@ -1405,7 +1405,7 @@ class TestAsyncKthcloudGoDeployV2:
 
         assert _get_open_connections(self.client) == 0
 
-    @mock.patch("kthcloud_go_deploy_v2._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("kthcloud_go_deploy_v_._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     async def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
         respx_mock.post("/v2/vms").mock(return_value=httpx.Response(500))

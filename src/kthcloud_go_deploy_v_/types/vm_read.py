@@ -6,10 +6,10 @@ from pydantic import Field as FieldInfo
 
 from .._models import BaseModel
 
-__all__ = ["VmRead", "Gpu", "Port", "PortHTTPProxy", "PortHTTPProxyCustomDomain", "Specs"]
+__all__ = ["VmRead", "GPU", "Port", "PortHTTPProxy", "PortHTTPProxyCustomDomain", "Specs"]
 
 
-class Gpu(BaseModel):
+class GPU(BaseModel):
     id: Optional[str] = None
 
     activated_at: Optional[str] = FieldInfo(alias="activatedAt", default=None)
@@ -84,7 +84,7 @@ class VmRead(BaseModel):
 
     created_at: Optional[str] = FieldInfo(alias="createdAt", default=None)
 
-    gpu: Optional[Gpu] = None
+    gpu: Optional[GPU] = None
 
     host: Optional[str] = None
 
