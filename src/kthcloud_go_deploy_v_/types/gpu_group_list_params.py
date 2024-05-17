@@ -6,10 +6,10 @@ from typing_extensions import Annotated, TypedDict
 
 from .._utils import PropertyInfo
 
-__all__ = ["GpuGroupListParams"]
+__all__ = ["GPUGroupListParams"]
 
 
-class GpuGroupListParams(TypedDict, total=False):
+class GPUGroupListParams(TypedDict, total=False):
     page: int
     """Page number"""
 

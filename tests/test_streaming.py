@@ -5,8 +5,8 @@ from typing import Iterator, AsyncIterator
 import httpx
 import pytest
 
-from kthcloud_go_deploy_v2 import KthcloudGoDeployV2, AsyncKthcloudGoDeployV2
-from kthcloud_go_deploy_v2._streaming import Stream, AsyncStream, ServerSentEvent
+from kthcloud_go_deploy_v_ import KthcloudGoDeployV2, AsyncKthcloudGoDeployV2
+from kthcloud_go_deploy_v_._streaming import Stream, AsyncStream, ServerSentEvent
 
 
 @pytest.mark.asyncio

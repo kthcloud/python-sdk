@@ -6,10 +6,10 @@ from typing_extensions import Annotated, TypedDict
 
 from .._utils import PropertyInfo
 
-__all__ = ["GpuLeaseListParams"]
+__all__ = ["GPULeaseListParams"]
 
 
-class GpuLeaseListParams(TypedDict, total=False):
+class GPULeaseListParams(TypedDict, total=False):
     all: bool
     """List all"""
 

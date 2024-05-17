@@ -6,8 +6,8 @@ import httpx
 import pytest
 import pydantic
 
-from kthcloud_go_deploy_v2 import BaseModel, KthcloudGoDeployV2, AsyncKthcloudGoDeployV2
-from kthcloud_go_deploy_v2._response import (
+from kthcloud_go_deploy_v_ import BaseModel, KthcloudGoDeployV2, AsyncKthcloudGoDeployV2
+from kthcloud_go_deploy_v_._response import (
     APIResponse,
     BaseAPIResponse,
     AsyncAPIResponse,
@@ -15,8 +15,8 @@ from kthcloud_go_deploy_v2._response import (
     AsyncBinaryAPIResponse,
     extract_response_type,
 )
-from kthcloud_go_deploy_v2._streaming import Stream
-from kthcloud_go_deploy_v2._base_client import FinalRequestOptions
+from kthcloud_go_deploy_v_._streaming import Stream
+from kthcloud_go_deploy_v_._base_client import FinalRequestOptions
 
 
 class ConcreteBaseAPIResponse(APIResponse[bytes]):
@@ -40,7 +40,7 @@ def test_extract_response_type_direct_classes() -> None:
 def test_extract_response_type_direct_class_missing_type_arg() -> None:
     with pytest.raises(
         RuntimeError,
-        match="Expected type <class 'kthcloud_go_deploy_v2._response.AsyncAPIResponse'> to have a type argument at index 0 but it did not",
+        match="Expected type <class 'kthcloud_go_deploy_v_._response.AsyncAPIResponse'> to have a type argument at index 0 but it did not",
     ):
         extract_response_type(AsyncAPIResponse)
 
@@ -72,7 +72,7 @@ def test_response_parse_mismatched_basemodel(client: KthcloudGoDeployV2) -> None
 
     with pytest.raises(
         TypeError,
-        match="Pydantic models must subclass our base model type, e.g. `from kthcloud_go_deploy_v2 import BaseModel`",
+        match="Pydantic models must subclass our base model type, e.g. `from kthcloud_go_deploy_v_ import BaseModel`",
     ):
         response.parse(to=PydanticModel)
 
@@ -90,7 +90,7 @@ async def test_async_response_parse_mismatched_basemodel(async_client: AsyncKthc
 
     with pytest.raises(
         TypeError,
-        match="Pydantic models must subclass our base model type, e.g. `from kthcloud_go_deploy_v2 import BaseModel`",
+        match="Pydantic models must subclass our base model type, e.g. `from kthcloud_go_deploy_v_ import BaseModel`",
     ):
         await response.parse(to=PydanticModel)
 

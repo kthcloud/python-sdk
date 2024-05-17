@@ -4,8 +4,8 @@ from typing import Sequence
 
 import pytest
 
-from kthcloud_go_deploy_v2._types import FileTypes
-from kthcloud_go_deploy_v2._utils import extract_files
+from kthcloud_go_deploy_v_._types import FileTypes
+from kthcloud_go_deploy_v_._utils import extract_files
 
 
 def test_removes_files_from_input() -> None:

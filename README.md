@@ -24,7 +24,7 @@ pip install --pre kthcloud
 The full API of this library can be found in [api.md](api.md).
 
 ```python
-from kthcloud_go_deploy_v2 import KthcloudGoDeployV2
+from kthcloud_go_deploy_v_ import KthcloudGoDeployV2
 
 client = KthcloudGoDeployV2()
 
@@ -49,7 +49,7 @@ Simply import `AsyncKthcloudGoDeployV2` instead of `KthcloudGoDeployV2` and use 
 
 ```python
 import asyncio
-from kthcloud_go_deploy_v2 import AsyncKthcloudGoDeployV2
+from kthcloud_go_deploy_v_ import AsyncKthcloudGoDeployV2
 
 client = AsyncKthcloudGoDeployV2()
 
@@ -81,16 +81,16 @@ Typed requests and responses provide autocomplete and documentation within your 
 
 ## Handling errors
 
-When the library is unable to connect to the API (for example, due to network connection problems or a timeout), a subclass of `kthcloud_go_deploy_v2.APIConnectionError` is raised.
+When the library is unable to connect to the API (for example, due to network connection problems or a timeout), a subclass of `kthcloud_go_deploy_v_.APIConnectionError` is raised.
 
 When the API returns a non-success status code (that is, 4xx or 5xx
-response), a subclass of `kthcloud_go_deploy_v2.APIStatusError` is raised, containing `status_code` and `response` properties.
+response), a subclass of `kthcloud_go_deploy_v_.APIStatusError` is raised, containing `status_code` and `response` properties.
 
-All errors inherit from `kthcloud_go_deploy_v2.APIError`.
+All errors inherit from `kthcloud_go_deploy_v_.APIError`.
 
 ```python
-import kthcloud_go_deploy_v2
-from kthcloud_go_deploy_v2 import KthcloudGoDeployV2
+import kthcloud_go_deploy_v_
+from kthcloud_go_deploy_v_ import KthcloudGoDeployV2
 
 client = KthcloudGoDeployV2()
 
@@ -102,12 +102,12 @@ try:
         ram=1,
         ssh_public_key="string",
     )
-except kthcloud_go_deploy_v2.APIConnectionError as e:
+except kthcloud_go_deploy_v_.APIConnectionError as e:
     print("The server could not be reached")
     print(e.__cause__)  # an underlying Exception, likely raised within httpx.
-except kthcloud_go_deploy_v2.RateLimitError as e:
+except kthcloud_go_deploy_v_.RateLimitError as e:
     print("A 429 status code was received; we should back off a bit.")
-except kthcloud_go_deploy_v2.APIStatusError as e:
+except kthcloud_go_deploy_v_.APIStatusError as e:
     print("Another non-200-range status code was received")
     print(e.status_code)
     print(e.response)
@@ -135,7 +135,7 @@ Connection errors (for example, due to a network connectivity problem), 408 Requ
 You can use the `max_retries` option to configure or disable retry settings:
 
 ```python
-from kthcloud_go_deploy_v2 import KthcloudGoDeployV2
+from kthcloud_go_deploy_v_ import KthcloudGoDeployV2
 
 # Configure the default for all requests:
 client = KthcloudGoDeployV2(
@@ -159,7 +159,7 @@ By default requests time out after 1 minute. You can configure this with a `time
 which accepts a float or an [`httpx.Timeout`](https://www.python-httpx.org/advanced/#fine-tuning-the-configuration) object:
 
 ```python
-from kthcloud_go_deploy_v2 import KthcloudGoDeployV2
+from kthcloud_go_deploy_v_ import KthcloudGoDeployV2
 
 # Configure the default for all requests:
 client = KthcloudGoDeployV2(
@@ -215,7 +215,7 @@ if response.my_field is None:
 The "raw" Response object can be accessed by prefixing `.with_raw_response.` to any HTTP method call, e.g.,
 
 ```py
-from kthcloud_go_deploy_v2 import KthcloudGoDeployV2
+from kthcloud_go_deploy_v_ import KthcloudGoDeployV2
 
 client = KthcloudGoDeployV2()
 response = client.vms.with_raw_response.create(
@@ -231,9 +231,9 @@ vm = response.parse()  # get the object that `vms.create()` would have returned
 print(vm.id)
 ```
 
-These methods return an [`APIResponse`](https://github.com/kthcloud/python-sdk/tree/main/src/kthcloud_go_deploy_v2/_response.py) object.
+These methods return an [`APIResponse`](https://github.com/kthcloud/python-sdk/tree/main/src/kthcloud_go_deploy_v_/_response.py) object.
 
-The async client returns an [`AsyncAPIResponse`](https://github.com/kthcloud/python-sdk/tree/main/src/kthcloud_go_deploy_v2/_response.py) with the same structure, the only difference being `await`able methods for reading the response content.
+The async client returns an [`AsyncAPIResponse`](https://github.com/kthcloud/python-sdk/tree/main/src/kthcloud_go_deploy_v_/_response.py) with the same structure, the only difference being `await`able methods for reading the response content.
 
 #### `.with_streaming_response`
 
@@ -301,7 +301,7 @@ You can directly override the [httpx client](https://www.python-httpx.org/api/#c
 - Additional [advanced](https://www.python-httpx.org/advanced/#client-instances) functionality
 
 ```python
-from kthcloud_go_deploy_v2 import KthcloudGoDeployV2, DefaultHttpxClient
+from kthcloud_go_deploy_v_ import KthcloudGoDeployV2, DefaultHttpxClient
 
 client = KthcloudGoDeployV2(
     # Or use the `KTHCLOUD_GO_DEPLOY_V2_BASE_URL` env var
