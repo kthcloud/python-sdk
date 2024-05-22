@@ -1,4 +1,4 @@
-# Kthcloud Go Deploy V2 Python API library
+# kthcloud Python SDK
 
 [![PyPI version](https://img.shields.io/pypi/v/kthcloud.svg)](https://pypi.org/project/kthcloud/)
 
