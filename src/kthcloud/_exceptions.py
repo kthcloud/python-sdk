@@ -18,11 +18,11 @@ __all__ = [
 ]
 
 
-class KthcloudGoDeployV2Error(Exception):
+class KthcloudError(Exception):
     pass
 
 
-class APIError(KthcloudGoDeployV2Error):
+class APIError(KthcloudError):
     message: str
     request: httpx.Request
 

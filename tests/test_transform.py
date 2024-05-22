@@ -8,15 +8,15 @@ from typing_extensions import Required, Annotated, TypedDict
 
 import pytest
 
-from kthcloud_go_deploy_v_._types import Base64FileInput
-from kthcloud_go_deploy_v_._utils import (
+from kthcloud._types import Base64FileInput
+from kthcloud._utils import (
     PropertyInfo,
     transform as _transform,
     parse_datetime,
     async_transform as _async_transform,
 )
-from kthcloud_go_deploy_v_._compat import PYDANTIC_V2
-from kthcloud_go_deploy_v_._models import BaseModel
+from kthcloud._compat import PYDANTIC_V2
+from kthcloud._models import BaseModel
 
 _T = TypeVar("_T")
 

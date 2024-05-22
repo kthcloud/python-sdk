@@ -25,7 +25,7 @@ from ._utils import (
 )
 from ._version import __version__
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
-from ._exceptions import APIStatusError, KthcloudGoDeployV2Error
+from ._exceptions import KthcloudError, APIStatusError
 from ._base_client import (
     DEFAULT_MAX_RETRIES,
     SyncAPIClient,
@@ -38,21 +38,21 @@ __all__ = [
     "ProxiesTypes",
     "RequestOptions",
     "resources",
-    "KthcloudGoDeployV2",
-    "AsyncKthcloudGoDeployV2",
+    "Kthcloud",
+    "AsyncKthcloud",
     "Client",
     "AsyncClient",
 ]
 
 
-class KthcloudGoDeployV2(SyncAPIClient):
+class Kthcloud(SyncAPIClient):
     gpu_groups: resources.GPUGroupsResource
     gpu_leases: resources.GPULeasesResource
     snapshots: resources.SnapshotsResource
     vm_actions: resources.VmActionsResource
     vms: resources.VmsResource
-    with_raw_response: KthcloudGoDeployV2WithRawResponse
-    with_streaming_response: KthcloudGoDeployV2WithStreamedResponse
+    with_raw_response: KthcloudWithRawResponse
+    with_streaming_response: KthcloudWithStreamedResponse
 
     # client options
     api_key: str
@@ -80,20 +80,20 @@ class KthcloudGoDeployV2(SyncAPIClient):
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
     ) -> None:
-        """Construct a new synchronous kthcloud-go-deploy-v2 client instance.
+        """Construct a new synchronous kthcloud client instance.
 
         This automatically infers the `api_key` argument from the `KTHCLOUD_API_KEY` environment variable if it is not provided.
         """
         if api_key is None:
             api_key = os.environ.get("KTHCLOUD_API_KEY")
         if api_key is None:
-            raise KthcloudGoDeployV2Error(
+            raise KthcloudError(
                 "The api_key client option must be set either by passing api_key to the client or by setting the KTHCLOUD_API_KEY environment variable"
             )
         self.api_key = api_key
 
         if base_url is None:
-            base_url = os.environ.get("KTHCLOUD_GO_DEPLOY_V2_BASE_URL")
+            base_url = os.environ.get("KTHCLOUD_BASE_URL")
         if base_url is None:
             base_url = f"https://api.cloud.cbh.kth.se/deploy/"
 
@@ -113,8 +113,8 @@ class KthcloudGoDeployV2(SyncAPIClient):
         self.snapshots = resources.SnapshotsResource(self)
         self.vm_actions = resources.VmActionsResource(self)
         self.vms = resources.VmsResource(self)
-        self.with_raw_response = KthcloudGoDeployV2WithRawResponse(self)
-        self.with_streaming_response = KthcloudGoDeployV2WithStreamedResponse(self)
+        self.with_raw_response = KthcloudWithRawResponse(self)
+        self.with_streaming_response = KthcloudWithStreamedResponse(self)
 
     @property
     @override
@@ -221,14 +221,14 @@ class KthcloudGoDeployV2(SyncAPIClient):
         return APIStatusError(err_msg, response=response, body=body)
 
 
-class AsyncKthcloudGoDeployV2(AsyncAPIClient):
+class AsyncKthcloud(AsyncAPIClient):
     gpu_groups: resources.AsyncGPUGroupsResource
     gpu_leases: resources.AsyncGPULeasesResource
     snapshots: resources.AsyncSnapshotsResource
     vm_actions: resources.AsyncVmActionsResource
     vms: resources.AsyncVmsResource
-    with_raw_response: AsyncKthcloudGoDeployV2WithRawResponse
-    with_streaming_response: AsyncKthcloudGoDeployV2WithStreamedResponse
+    with_raw_response: AsyncKthcloudWithRawResponse
+    with_streaming_response: AsyncKthcloudWithStreamedResponse
 
     # client options
     api_key: str
@@ -256,20 +256,20 @@ class AsyncKthcloudGoDeployV2(AsyncAPIClient):
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
     ) -> None:
-        """Construct a new async kthcloud-go-deploy-v2 client instance.
+        """Construct a new async kthcloud client instance.
 
         This automatically infers the `api_key` argument from the `KTHCLOUD_API_KEY` environment variable if it is not provided.
         """
         if api_key is None:
             api_key = os.environ.get("KTHCLOUD_API_KEY")
         if api_key is None:
-            raise KthcloudGoDeployV2Error(
+            raise KthcloudError(
                 "The api_key client option must be set either by passing api_key to the client or by setting the KTHCLOUD_API_KEY environment variable"
             )
         self.api_key = api_key
 
         if base_url is None:
-            base_url = os.environ.get("KTHCLOUD_GO_DEPLOY_V2_BASE_URL")
+            base_url = os.environ.get("KTHCLOUD_BASE_URL")
         if base_url is None:
             base_url = f"https://api.cloud.cbh.kth.se/deploy/"
 
@@ -289,8 +289,8 @@ class AsyncKthcloudGoDeployV2(AsyncAPIClient):
         self.snapshots = resources.AsyncSnapshotsResource(self)
         self.vm_actions = resources.AsyncVmActionsResource(self)
         self.vms = resources.AsyncVmsResource(self)
-        self.with_raw_response = AsyncKthcloudGoDeployV2WithRawResponse(self)
-        self.with_streaming_response = AsyncKthcloudGoDeployV2WithStreamedResponse(self)
+        self.with_raw_response = AsyncKthcloudWithRawResponse(self)
+        self.with_streaming_response = AsyncKthcloudWithStreamedResponse(self)
 
     @property
     @override
@@ -397,8 +397,8 @@ class AsyncKthcloudGoDeployV2(AsyncAPIClient):
         return APIStatusError(err_msg, response=response, body=body)
 
 
-class KthcloudGoDeployV2WithRawResponse:
-    def __init__(self, client: KthcloudGoDeployV2) -> None:
+class KthcloudWithRawResponse:
+    def __init__(self, client: Kthcloud) -> None:
         self.gpu_groups = resources.GPUGroupsResourceWithRawResponse(client.gpu_groups)
         self.gpu_leases = resources.GPULeasesResourceWithRawResponse(client.gpu_leases)
         self.snapshots = resources.SnapshotsResourceWithRawResponse(client.snapshots)
@@ -406,8 +406,8 @@ class KthcloudGoDeployV2WithRawResponse:
         self.vms = resources.VmsResourceWithRawResponse(client.vms)
 
 
-class AsyncKthcloudGoDeployV2WithRawResponse:
-    def __init__(self, client: AsyncKthcloudGoDeployV2) -> None:
+class AsyncKthcloudWithRawResponse:
+    def __init__(self, client: AsyncKthcloud) -> None:
         self.gpu_groups = resources.AsyncGPUGroupsResourceWithRawResponse(client.gpu_groups)
         self.gpu_leases = resources.AsyncGPULeasesResourceWithRawResponse(client.gpu_leases)
         self.snapshots = resources.AsyncSnapshotsResourceWithRawResponse(client.snapshots)
@@ -415,8 +415,8 @@ class AsyncKthcloudGoDeployV2WithRawResponse:
         self.vms = resources.AsyncVmsResourceWithRawResponse(client.vms)
 
 
-class KthcloudGoDeployV2WithStreamedResponse:
-    def __init__(self, client: KthcloudGoDeployV2) -> None:
+class KthcloudWithStreamedResponse:
+    def __init__(self, client: Kthcloud) -> None:
         self.gpu_groups = resources.GPUGroupsResourceWithStreamingResponse(client.gpu_groups)
         self.gpu_leases = resources.GPULeasesResourceWithStreamingResponse(client.gpu_leases)
         self.snapshots = resources.SnapshotsResourceWithStreamingResponse(client.snapshots)
@@ -424,8 +424,8 @@ class KthcloudGoDeployV2WithStreamedResponse:
         self.vms = resources.VmsResourceWithStreamingResponse(client.vms)
 
 
-class AsyncKthcloudGoDeployV2WithStreamedResponse:
-    def __init__(self, client: AsyncKthcloudGoDeployV2) -> None:
+class AsyncKthcloudWithStreamedResponse:
+    def __init__(self, client: AsyncKthcloud) -> None:
         self.gpu_groups = resources.AsyncGPUGroupsResourceWithStreamingResponse(client.gpu_groups)
         self.gpu_leases = resources.AsyncGPULeasesResourceWithStreamingResponse(client.gpu_leases)
         self.snapshots = resources.AsyncSnapshotsResourceWithStreamingResponse(client.snapshots)
@@ -433,6 +433,6 @@ class AsyncKthcloudGoDeployV2WithStreamedResponse:
         self.vms = resources.AsyncVmsResourceWithStreamingResponse(client.vms)
 
 
-Client = KthcloudGoDeployV2
+Client = Kthcloud
 
-AsyncClient = AsyncKthcloudGoDeployV2
+AsyncClient = AsyncKthcloud

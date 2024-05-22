@@ -1,11 +1,11 @@
 [project]
 name = "kthcloud"
 version = "0.4.0-alpha"
-description = "The official Python library for the kthcloud-go-deploy-v2 API"
+description = "The official Python library for the kthcloud API"
 dynamic = ["readme"]
 license = "Apache-2.0"
 authors = [
-{ name = "Kthcloud Go Deploy V2", email = "dev@cloud.cbh.kth.se" },
+{ name = "Kthcloud", email = "dev@cloud.cbh.kth.se" },
 ]
 dependencies = [
     "httpx>=0.23.0, <1",
@@ -84,7 +84,7 @@ typecheck = { chain = [
   "typecheck:mypy"
 ]}
 "typecheck:pyright" = "pyright"
-"typecheck:verify-types" = "pyright --verifytypes kthcloud_go_deploy_v_ --ignoreexternal"
+"typecheck:verify-types" = "pyright --verifytypes kthcloud --ignoreexternal"
 "typecheck:mypy" = "mypy ."
 
 [build-system]
@@ -97,7 +97,7 @@ include = [
 ]
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/kthcloud_go_deploy_v_"]
+packages = ["src/kthcloud"]
 
 [tool.hatch.metadata.hooks.fancy-pypi-readme]
 content-type = "text/markdown"
@@ -187,7 +187,7 @@ length-sort = true
 length-sort-straight = true
 combine-as-imports = true
 extra-standard-library = ["typing_extensions"]
-known-first-party = ["kthcloud_go_deploy_v_", "tests"]
+known-first-party = ["kthcloud", "tests"]
 
 [tool.ruff.per-file-ignores]
 "bin/**.py" = ["T201", "T203"]
