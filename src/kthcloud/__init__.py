@@ -7,12 +7,12 @@ from ._client import (
     Client,
     Stream,
     Timeout,
+    Kthcloud,
     Transport,
     AsyncClient,
     AsyncStream,
+    AsyncKthcloud,
     RequestOptions,
-    KthcloudGoDeployV2,
-    AsyncKthcloudGoDeployV2,
 )
 from ._models import BaseModel
 from ._version import __title__, __version__
@@ -21,6 +21,7 @@ from ._constants import DEFAULT_TIMEOUT, DEFAULT_MAX_RETRIES, DEFAULT_CONNECTION
 from ._exceptions import (
     APIError,
     ConflictError,
+    KthcloudError,
     NotFoundError,
     APIStatusError,
     RateLimitError,
@@ -30,7 +31,6 @@ from ._exceptions import (
     AuthenticationError,
     InternalServerError,
     PermissionDeniedError,
-    KthcloudGoDeployV2Error,
     UnprocessableEntityError,
     APIResponseValidationError,
 )
@@ -46,7 +46,7 @@ __all__ = [
     "ProxiesTypes",
     "NotGiven",
     "NOT_GIVEN",
-    "KthcloudGoDeployV2Error",
+    "KthcloudError",
     "APIError",
     "APIStatusError",
     "APITimeoutError",
@@ -66,8 +66,8 @@ __all__ = [
     "AsyncClient",
     "Stream",
     "AsyncStream",
-    "KthcloudGoDeployV2",
-    "AsyncKthcloudGoDeployV2",
+    "Kthcloud",
+    "AsyncKthcloud",
     "file_from_path",
     "BaseModel",
     "DEFAULT_TIMEOUT",
@@ -82,12 +82,12 @@ _setup_logging()
 # Update the __module__ attribute for exported symbols so that
 # error messages point to this module instead of the module
 # it was originally defined in, e.g.
-# kthcloud_go_deploy_v_._exceptions.NotFoundError -> kthcloud_go_deploy_v_.NotFoundError
+# kthcloud._exceptions.NotFoundError -> kthcloud.NotFoundError
 __locals = locals()
 for __name in __all__:
     if not __name.startswith("__"):
         try:
-            __locals[__name].__module__ = "kthcloud_go_deploy_v_"
+            __locals[__name].__module__ = "kthcloud"
         except (TypeError, AttributeError):
             # Some of our exported symbols are builtins which we can't set attributes for.
             pass

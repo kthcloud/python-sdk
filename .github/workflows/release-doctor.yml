@@ -16,4 +16,4 @@ jobs:
         run: |
           bash ./bin/check-release-environment
         env:
-          PYPI_TOKEN: ${{ secrets.KTHCLOUD_GO_DEPLOY_V2_PYPI_TOKEN || secrets.PYPI_TOKEN }}
+          PYPI_TOKEN: ${{ secrets.KTHCLOUD_PYPI_TOKEN || secrets.PYPI_TOKEN }}

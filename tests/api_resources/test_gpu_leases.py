@@ -7,9 +7,9 @@ from typing import Any, cast
 
 import pytest
 
+from kthcloud import Kthcloud, AsyncKthcloud
 from tests.utils import assert_matches_type
-from kthcloud_go_deploy_v_ import KthcloudGoDeployV2, AsyncKthcloudGoDeployV2
-from kthcloud_go_deploy_v_.types import (
+from kthcloud.types import (
     GPULeaseRead,
     GPULeaseCreated,
     GPULeaseDeleted,
@@ -24,14 +24,14 @@ class TestGPULeases:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @parametrize
-    def test_method_create(self, client: KthcloudGoDeployV2) -> None:
+    def test_method_create(self, client: Kthcloud) -> None:
         gpu_lease = client.gpu_leases.create(
             gpu_group_id="string",
         )
         assert_matches_type(GPULeaseCreated, gpu_lease, path=["response"])
 
     @parametrize
-    def test_method_create_with_all_params(self, client: KthcloudGoDeployV2) -> None:
+    def test_method_create_with_all_params(self, client: Kthcloud) -> None:
         gpu_lease = client.gpu_leases.create(
             gpu_group_id="string",
             lease_forever=True,
@@ -39,7 +39,7 @@ class TestGPULeases:
         assert_matches_type(GPULeaseCreated, gpu_lease, path=["response"])
 
     @parametrize
-    def test_raw_response_create(self, client: KthcloudGoDeployV2) -> None:
+    def test_raw_response_create(self, client: Kthcloud) -> None:
         response = client.gpu_leases.with_raw_response.create(
             gpu_group_id="string",
         )
@@ -50,7 +50,7 @@ class TestGPULeases:
         assert_matches_type(GPULeaseCreated, gpu_lease, path=["response"])
 
     @parametrize
-    def test_streaming_response_create(self, client: KthcloudGoDeployV2) -> None:
+    def test_streaming_response_create(self, client: Kthcloud) -> None:
         with client.gpu_leases.with_streaming_response.create(
             gpu_group_id="string",
         ) as response:
@@ -63,14 +63,14 @@ class TestGPULeases:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_method_retrieve(self, client: KthcloudGoDeployV2) -> None:
+    def test_method_retrieve(self, client: Kthcloud) -> None:
         gpu_lease = client.gpu_leases.retrieve(
             "string",
         )
         assert_matches_type(GPULeaseRead, gpu_lease, path=["response"])
 
     @parametrize
-    def test_raw_response_retrieve(self, client: KthcloudGoDeployV2) -> None:
+    def test_raw_response_retrieve(self, client: Kthcloud) -> None:
         response = client.gpu_leases.with_raw_response.retrieve(
             "string",
         )
@@ -81,7 +81,7 @@ class TestGPULeases:
         assert_matches_type(GPULeaseRead, gpu_lease, path=["response"])
 
     @parametrize
-    def test_streaming_response_retrieve(self, client: KthcloudGoDeployV2) -> None:
+    def test_streaming_response_retrieve(self, client: Kthcloud) -> None:
         with client.gpu_leases.with_streaming_response.retrieve(
             "string",
         ) as response:
@@ -94,21 +94,21 @@ class TestGPULeases:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_retrieve(self, client: KthcloudGoDeployV2) -> None:
+    def test_path_params_retrieve(self, client: Kthcloud) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `gpu_lease_id` but received ''"):
             client.gpu_leases.with_raw_response.retrieve(
                 "",
             )
 
     @parametrize
-    def test_method_update(self, client: KthcloudGoDeployV2) -> None:
+    def test_method_update(self, client: Kthcloud) -> None:
         gpu_lease = client.gpu_leases.update(
             "string",
         )
         assert_matches_type(GPULeaseUpdated, gpu_lease, path=["response"])
 
     @parametrize
-    def test_method_update_with_all_params(self, client: KthcloudGoDeployV2) -> None:
+    def test_method_update_with_all_params(self, client: Kthcloud) -> None:
         gpu_lease = client.gpu_leases.update(
             "string",
             vm_id="string",
@@ -116,7 +116,7 @@ class TestGPULeases:
         assert_matches_type(GPULeaseUpdated, gpu_lease, path=["response"])
 
     @parametrize
-    def test_raw_response_update(self, client: KthcloudGoDeployV2) -> None:
+    def test_raw_response_update(self, client: Kthcloud) -> None:
         response = client.gpu_leases.with_raw_response.update(
             "string",
         )
@@ -127,7 +127,7 @@ class TestGPULeases:
         assert_matches_type(GPULeaseUpdated, gpu_lease, path=["response"])
 
     @parametrize
-    def test_streaming_response_update(self, client: KthcloudGoDeployV2) -> None:
+    def test_streaming_response_update(self, client: Kthcloud) -> None:
         with client.gpu_leases.with_streaming_response.update(
             "string",
         ) as response:
@@ -140,19 +140,19 @@ class TestGPULeases:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_update(self, client: KthcloudGoDeployV2) -> None:
+    def test_path_params_update(self, client: Kthcloud) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `gpu_lease_id` but received ''"):
             client.gpu_leases.with_raw_response.update(
                 "",
             )
 
     @parametrize
-    def test_method_list(self, client: KthcloudGoDeployV2) -> None:
+    def test_method_list(self, client: Kthcloud) -> None:
         gpu_lease = client.gpu_leases.list()
         assert_matches_type(GPULeaseListResponse, gpu_lease, path=["response"])
 
     @parametrize
-    def test_method_list_with_all_params(self, client: KthcloudGoDeployV2) -> None:
+    def test_method_list_with_all_params(self, client: Kthcloud) -> None:
         gpu_lease = client.gpu_leases.list(
             all=True,
             page=0,
@@ -162,7 +162,7 @@ class TestGPULeases:
         assert_matches_type(GPULeaseListResponse, gpu_lease, path=["response"])
 
     @parametrize
-    def test_raw_response_list(self, client: KthcloudGoDeployV2) -> None:
+    def test_raw_response_list(self, client: Kthcloud) -> None:
         response = client.gpu_leases.with_raw_response.list()
 
         assert response.is_closed is True
@@ -171,7 +171,7 @@ class TestGPULeases:
         assert_matches_type(GPULeaseListResponse, gpu_lease, path=["response"])
 
     @parametrize
-    def test_streaming_response_list(self, client: KthcloudGoDeployV2) -> None:
+    def test_streaming_response_list(self, client: Kthcloud) -> None:
         with client.gpu_leases.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -182,14 +182,14 @@ class TestGPULeases:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_method_delete(self, client: KthcloudGoDeployV2) -> None:
+    def test_method_delete(self, client: Kthcloud) -> None:
         gpu_lease = client.gpu_leases.delete(
             "string",
         )
         assert_matches_type(GPULeaseDeleted, gpu_lease, path=["response"])
 
     @parametrize
-    def test_raw_response_delete(self, client: KthcloudGoDeployV2) -> None:
+    def test_raw_response_delete(self, client: Kthcloud) -> None:
         response = client.gpu_leases.with_raw_response.delete(
             "string",
         )
@@ -200,7 +200,7 @@ class TestGPULeases:
         assert_matches_type(GPULeaseDeleted, gpu_lease, path=["response"])
 
     @parametrize
-    def test_streaming_response_delete(self, client: KthcloudGoDeployV2) -> None:
+    def test_streaming_response_delete(self, client: Kthcloud) -> None:
         with client.gpu_leases.with_streaming_response.delete(
             "string",
         ) as response:
@@ -213,7 +213,7 @@ class TestGPULeases:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_delete(self, client: KthcloudGoDeployV2) -> None:
+    def test_path_params_delete(self, client: Kthcloud) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `gpu_lease_id` but received ''"):
             client.gpu_leases.with_raw_response.delete(
                 "",
@@ -224,14 +224,14 @@ class TestAsyncGPULeases:
     parametrize = pytest.mark.parametrize("async_client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @parametrize
-    async def test_method_create(self, async_client: AsyncKthcloudGoDeployV2) -> None:
+    async def test_method_create(self, async_client: AsyncKthcloud) -> None:
         gpu_lease = await async_client.gpu_leases.create(
             gpu_group_id="string",
         )
         assert_matches_type(GPULeaseCreated, gpu_lease, path=["response"])
 
     @parametrize
-    async def test_method_create_with_all_params(self, async_client: AsyncKthcloudGoDeployV2) -> None:
+    async def test_method_create_with_all_params(self, async_client: AsyncKthcloud) -> None:
         gpu_lease = await async_client.gpu_leases.create(
             gpu_group_id="string",
             lease_forever=True,
@@ -239,7 +239,7 @@ class TestAsyncGPULeases:
         assert_matches_type(GPULeaseCreated, gpu_lease, path=["response"])
 
     @parametrize
-    async def test_raw_response_create(self, async_client: AsyncKthcloudGoDeployV2) -> None:
+    async def test_raw_response_create(self, async_client: AsyncKthcloud) -> None:
         response = await async_client.gpu_leases.with_raw_response.create(
             gpu_group_id="string",
         )
@@ -250,7 +250,7 @@ class TestAsyncGPULeases:
         assert_matches_type(GPULeaseCreated, gpu_lease, path=["response"])
 
     @parametrize
-    async def test_streaming_response_create(self, async_client: AsyncKthcloudGoDeployV2) -> None:
+    async def test_streaming_response_create(self, async_client: AsyncKthcloud) -> None:
         async with async_client.gpu_leases.with_streaming_response.create(
             gpu_group_id="string",
         ) as response:
@@ -263,14 +263,14 @@ class TestAsyncGPULeases:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_method_retrieve(self, async_client: AsyncKthcloudGoDeployV2) -> None:
+    async def test_method_retrieve(self, async_client: AsyncKthcloud) -> None:
         gpu_lease = await async_client.gpu_leases.retrieve(
             "string",
         )
         assert_matches_type(GPULeaseRead, gpu_lease, path=["response"])
 
     @parametrize
-    async def test_raw_response_retrieve(self, async_client: AsyncKthcloudGoDeployV2) -> None:
+    async def test_raw_response_retrieve(self, async_client: AsyncKthcloud) -> None:
         response = await async_client.gpu_leases.with_raw_response.retrieve(
             "string",
         )
@@ -281,7 +281,7 @@ class TestAsyncGPULeases:
         assert_matches_type(GPULeaseRead, gpu_lease, path=["response"])
 
     @parametrize
-    async def test_streaming_response_retrieve(self, async_client: AsyncKthcloudGoDeployV2) -> None:
+    async def test_streaming_response_retrieve(self, async_client: AsyncKthcloud) -> None:
         async with async_client.gpu_leases.with_streaming_response.retrieve(
             "string",
         ) as response:
@@ -294,21 +294,21 @@ class TestAsyncGPULeases:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_retrieve(self, async_client: AsyncKthcloudGoDeployV2) -> None:
+    async def test_path_params_retrieve(self, async_client: AsyncKthcloud) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `gpu_lease_id` but received ''"):
             await async_client.gpu_leases.with_raw_response.retrieve(
                 "",
             )
 
     @parametrize
-    async def test_method_update(self, async_client: AsyncKthcloudGoDeployV2) -> None:
+    async def test_method_update(self, async_client: AsyncKthcloud) -> None:
         gpu_lease = await async_client.gpu_leases.update(
             "string",
         )
         assert_matches_type(GPULeaseUpdated, gpu_lease, path=["response"])
 
     @parametrize
-    async def test_method_update_with_all_params(self, async_client: AsyncKthcloudGoDeployV2) -> None:
+    async def test_method_update_with_all_params(self, async_client: AsyncKthcloud) -> None:
         gpu_lease = await async_client.gpu_leases.update(
             "string",
             vm_id="string",
@@ -316,7 +316,7 @@ class TestAsyncGPULeases:
         assert_matches_type(GPULeaseUpdated, gpu_lease, path=["response"])
 
     @parametrize
-    async def test_raw_response_update(self, async_client: AsyncKthcloudGoDeployV2) -> None:
+    async def test_raw_response_update(self, async_client: AsyncKthcloud) -> None:
         response = await async_client.gpu_leases.with_raw_response.update(
             "string",
         )
@@ -327,7 +327,7 @@ class TestAsyncGPULeases:
         assert_matches_type(GPULeaseUpdated, gpu_lease, path=["response"])
 
     @parametrize
-    async def test_streaming_response_update(self, async_client: AsyncKthcloudGoDeployV2) -> None:
+    async def test_streaming_response_update(self, async_client: AsyncKthcloud) -> None:
         async with async_client.gpu_leases.with_streaming_response.update(
             "string",
         ) as response:
@@ -340,19 +340,19 @@ class TestAsyncGPULeases:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_update(self, async_client: AsyncKthcloudGoDeployV2) -> None:
+    async def test_path_params_update(self, async_client: AsyncKthcloud) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `gpu_lease_id` but received ''"):
             await async_client.gpu_leases.with_raw_response.update(
                 "",
             )
 
     @parametrize
-    async def test_method_list(self, async_client: AsyncKthcloudGoDeployV2) -> None:
+    async def test_method_list(self, async_client: AsyncKthcloud) -> None:
         gpu_lease = await async_client.gpu_leases.list()
         assert_matches_type(GPULeaseListResponse, gpu_lease, path=["response"])
 
     @parametrize
-    async def test_method_list_with_all_params(self, async_client: AsyncKthcloudGoDeployV2) -> None:
+    async def test_method_list_with_all_params(self, async_client: AsyncKthcloud) -> None:
         gpu_lease = await async_client.gpu_leases.list(
             all=True,
             page=0,
@@ -362,7 +362,7 @@ class TestAsyncGPULeases:
         assert_matches_type(GPULeaseListResponse, gpu_lease, path=["response"])
 
     @parametrize
-    async def test_raw_response_list(self, async_client: AsyncKthcloudGoDeployV2) -> None:
+    async def test_raw_response_list(self, async_client: AsyncKthcloud) -> None:
         response = await async_client.gpu_leases.with_raw_response.list()
 
         assert response.is_closed is True
@@ -371,7 +371,7 @@ class TestAsyncGPULeases:
         assert_matches_type(GPULeaseListResponse, gpu_lease, path=["response"])
 
     @parametrize
-    async def test_streaming_response_list(self, async_client: AsyncKthcloudGoDeployV2) -> None:
+    async def test_streaming_response_list(self, async_client: AsyncKthcloud) -> None:
         async with async_client.gpu_leases.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -382,14 +382,14 @@ class TestAsyncGPULeases:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_method_delete(self, async_client: AsyncKthcloudGoDeployV2) -> None:
+    async def test_method_delete(self, async_client: AsyncKthcloud) -> None:
         gpu_lease = await async_client.gpu_leases.delete(
             "string",
         )
         assert_matches_type(GPULeaseDeleted, gpu_lease, path=["response"])
 
     @parametrize
-    async def test_raw_response_delete(self, async_client: AsyncKthcloudGoDeployV2) -> None:
+    async def test_raw_response_delete(self, async_client: AsyncKthcloud) -> None:
         response = await async_client.gpu_leases.with_raw_response.delete(
             "string",
         )
@@ -400,7 +400,7 @@ class TestAsyncGPULeases:
         assert_matches_type(GPULeaseDeleted, gpu_lease, path=["response"])
 
     @parametrize
-    async def test_streaming_response_delete(self, async_client: AsyncKthcloudGoDeployV2) -> None:
+    async def test_streaming_response_delete(self, async_client: AsyncKthcloud) -> None:
         async with async_client.gpu_leases.with_streaming_response.delete(
             "string",
         ) as response:
@@ -413,7 +413,7 @@ class TestAsyncGPULeases:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_delete(self, async_client: AsyncKthcloudGoDeployV2) -> None:
+    async def test_path_params_delete(self, async_client: AsyncKthcloud) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `gpu_lease_id` but received ''"):
             await async_client.gpu_leases.with_raw_response.delete(
                 "",

@@ -16,11 +16,11 @@ import pytest
 from respx import MockRouter
 from pydantic import ValidationError
 
-from kthcloud_go_deploy_v_ import KthcloudGoDeployV2, AsyncKthcloudGoDeployV2, APIResponseValidationError
-from kthcloud_go_deploy_v_._models import BaseModel, FinalRequestOptions
-from kthcloud_go_deploy_v_._constants import RAW_RESPONSE_HEADER
-from kthcloud_go_deploy_v_._exceptions import APIStatusError, APITimeoutError, APIResponseValidationError
-from kthcloud_go_deploy_v_._base_client import (
+from kthcloud import Kthcloud, AsyncKthcloud, APIResponseValidationError
+from kthcloud._models import BaseModel, FinalRequestOptions
+from kthcloud._constants import RAW_RESPONSE_HEADER
+from kthcloud._exceptions import APIStatusError, APITimeoutError, APIResponseValidationError
+from kthcloud._base_client import (
     DEFAULT_TIMEOUT,
     HTTPX_DEFAULT_TIMEOUT,
     BaseClient,
@@ -43,7 +43,7 @@ def _low_retry_timeout(*_args: Any, **_kwargs: Any) -> float:
     return 0.1
 
 
-def _get_open_connections(client: KthcloudGoDeployV2 | AsyncKthcloudGoDeployV2) -> int:
+def _get_open_connections(client: Kthcloud | AsyncKthcloud) -> int:
     transport = client._client._transport
     assert isinstance(transport, httpx.HTTPTransport) or isinstance(transport, httpx.AsyncHTTPTransport)
 
@@ -51,8 +51,8 @@ def _get_open_connections(client: KthcloudGoDeployV2 | AsyncKthcloudGoDeployV2) 
     return len(pool._requests)
 
 
-class TestKthcloudGoDeployV2:
-    client = KthcloudGoDeployV2(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+class TestKthcloud:
+    client = Kthcloud(base_url=base_url, api_key=api_key, _strict_response_validation=True)
 
     @pytest.mark.respx(base_url=base_url)
     def test_raw_response(self, respx_mock: MockRouter) -> None:
@@ -99,7 +99,7 @@ class TestKthcloudGoDeployV2:
         assert isinstance(self.client.timeout, httpx.Timeout)
 
     def test_copy_default_headers(self) -> None:
-        client = KthcloudGoDeployV2(
+        client = Kthcloud(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, default_headers={"X-Foo": "bar"}
         )
         assert client.default_headers["X-Foo"] == "bar"
@@ -133,7 +133,7 @@ class TestKthcloudGoDeployV2:
             client.copy(set_default_headers={}, default_headers={"X-Foo": "Bar"})
 
     def test_copy_default_query(self) -> None:
-        client = KthcloudGoDeployV2(
+        client = Kthcloud(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, default_query={"foo": "bar"}
         )
         assert _get_params(client)["foo"] == "bar"
@@ -224,10 +224,10 @@ class TestKthcloudGoDeployV2:
                         # to_raw_response_wrapper leaks through the @functools.wraps() decorator.
                         #
                         # removing the decorator fixes the leak for reasons we don't understand.
-                        "kthcloud_go_deploy_v_/_legacy_response.py",
-                        "kthcloud_go_deploy_v_/_response.py",
+                        "kthcloud/_legacy_response.py",
+                        "kthcloud/_response.py",
                         # pydantic.BaseModel.model_dump || pydantic.BaseModel.dict leak memory for some reason.
-                        "kthcloud_go_deploy_v_/_compat.py",
+                        "kthcloud/_compat.py",
                         # Standard library leaks we don't care about.
                         "/logging/__init__.py",
                     ]
@@ -258,7 +258,7 @@ class TestKthcloudGoDeployV2:
         assert timeout == httpx.Timeout(100.0)
 
     def test_client_timeout_option(self) -> None:
-        client = KthcloudGoDeployV2(
+        client = Kthcloud(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, timeout=httpx.Timeout(0)
         )
 
@@ -269,7 +269,7 @@ class TestKthcloudGoDeployV2:
     def test_http_client_timeout_option(self) -> None:
         # custom timeout given to the httpx client should be used
         with httpx.Client(timeout=None) as http_client:
-            client = KthcloudGoDeployV2(
+            client = Kthcloud(
                 base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client
             )
 
@@ -279,7 +279,7 @@ class TestKthcloudGoDeployV2:
 
         # no timeout given to the httpx client should not use the httpx default
         with httpx.Client() as http_client:
-            client = KthcloudGoDeployV2(
+            client = Kthcloud(
                 base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client
             )
 
@@ -289,7 +289,7 @@ class TestKthcloudGoDeployV2:
 
         # explicitly passing the default timeout currently results in it being ignored
         with httpx.Client(timeout=HTTPX_DEFAULT_TIMEOUT) as http_client:
-            client = KthcloudGoDeployV2(
+            client = Kthcloud(
                 base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client
             )
 
@@ -300,7 +300,7 @@ class TestKthcloudGoDeployV2:
     async def test_invalid_http_client(self) -> None:
         with pytest.raises(TypeError, match="Invalid `http_client` arg"):
             async with httpx.AsyncClient() as http_client:
-                KthcloudGoDeployV2(
+                Kthcloud(
                     base_url=base_url,
                     api_key=api_key,
                     _strict_response_validation=True,
@@ -308,14 +308,14 @@ class TestKthcloudGoDeployV2:
                 )
 
     def test_default_headers_option(self) -> None:
-        client = KthcloudGoDeployV2(
+        client = Kthcloud(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, default_headers={"X-Foo": "bar"}
         )
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("x-foo") == "bar"
         assert request.headers.get("x-stainless-lang") == "python"
 
-        client2 = KthcloudGoDeployV2(
+        client2 = Kthcloud(
             base_url=base_url,
             api_key=api_key,
             _strict_response_validation=True,
@@ -329,7 +329,7 @@ class TestKthcloudGoDeployV2:
         assert request.headers.get("x-stainless-lang") == "my-overriding-header"
 
     def test_default_query_option(self) -> None:
-        client = KthcloudGoDeployV2(
+        client = Kthcloud(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, default_query={"query_param": "bar"}
         )
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
@@ -443,7 +443,7 @@ class TestKthcloudGoDeployV2:
         params = dict(request.url.params)
         assert params == {"foo": "2"}
 
-    def test_multipart_repeating_array(self, client: KthcloudGoDeployV2) -> None:
+    def test_multipart_repeating_array(self, client: Kthcloud) -> None:
         request = client._build_request(
             FinalRequestOptions.construct(
                 method="get",
@@ -530,9 +530,7 @@ class TestKthcloudGoDeployV2:
         assert response.foo == 2
 
     def test_base_url_setter(self) -> None:
-        client = KthcloudGoDeployV2(
-            base_url="https://example.com/from_init", api_key=api_key, _strict_response_validation=True
-        )
+        client = Kthcloud(base_url="https://example.com/from_init", api_key=api_key, _strict_response_validation=True)
         assert client.base_url == "https://example.com/from_init/"
 
         client.base_url = "https://example.com/from_setter"  # type: ignore[assignment]
@@ -540,17 +538,15 @@ class TestKthcloudGoDeployV2:
         assert client.base_url == "https://example.com/from_setter/"
 
     def test_base_url_env(self) -> None:
-        with update_env(KTHCLOUD_GO_DEPLOY_V2_BASE_URL="http://localhost:5000/from/env"):
-            client = KthcloudGoDeployV2(api_key=api_key, _strict_response_validation=True)
+        with update_env(KTHCLOUD_BASE_URL="http://localhost:5000/from/env"):
+            client = Kthcloud(api_key=api_key, _strict_response_validation=True)
             assert client.base_url == "http://localhost:5000/from/env/"
 
     @pytest.mark.parametrize(
         "client",
         [
-            KthcloudGoDeployV2(
-                base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True
-            ),
-            KthcloudGoDeployV2(
+            Kthcloud(base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True),
+            Kthcloud(
                 base_url="http://localhost:5000/custom/path/",
                 api_key=api_key,
                 _strict_response_validation=True,
@@ -559,7 +555,7 @@ class TestKthcloudGoDeployV2:
         ],
         ids=["standard", "custom http client"],
     )
-    def test_base_url_trailing_slash(self, client: KthcloudGoDeployV2) -> None:
+    def test_base_url_trailing_slash(self, client: Kthcloud) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -572,10 +568,8 @@ class TestKthcloudGoDeployV2:
     @pytest.mark.parametrize(
         "client",
         [
-            KthcloudGoDeployV2(
-                base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True
-            ),
-            KthcloudGoDeployV2(
+            Kthcloud(base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True),
+            Kthcloud(
                 base_url="http://localhost:5000/custom/path/",
                 api_key=api_key,
                 _strict_response_validation=True,
@@ -584,7 +578,7 @@ class TestKthcloudGoDeployV2:
         ],
         ids=["standard", "custom http client"],
     )
-    def test_base_url_no_trailing_slash(self, client: KthcloudGoDeployV2) -> None:
+    def test_base_url_no_trailing_slash(self, client: Kthcloud) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -597,10 +591,8 @@ class TestKthcloudGoDeployV2:
     @pytest.mark.parametrize(
         "client",
         [
-            KthcloudGoDeployV2(
-                base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True
-            ),
-            KthcloudGoDeployV2(
+            Kthcloud(base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True),
+            Kthcloud(
                 base_url="http://localhost:5000/custom/path/",
                 api_key=api_key,
                 _strict_response_validation=True,
@@ -609,7 +601,7 @@ class TestKthcloudGoDeployV2:
         ],
         ids=["standard", "custom http client"],
     )
-    def test_absolute_request_url(self, client: KthcloudGoDeployV2) -> None:
+    def test_absolute_request_url(self, client: Kthcloud) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -620,7 +612,7 @@ class TestKthcloudGoDeployV2:
         assert request.url == "https://myapi.com/foo"
 
     def test_copied_client_does_not_close_http(self) -> None:
-        client = KthcloudGoDeployV2(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        client = Kthcloud(base_url=base_url, api_key=api_key, _strict_response_validation=True)
         assert not client.is_closed()
 
         copied = client.copy()
@@ -631,7 +623,7 @@ class TestKthcloudGoDeployV2:
         assert not client.is_closed()
 
     def test_client_context_manager(self) -> None:
-        client = KthcloudGoDeployV2(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        client = Kthcloud(base_url=base_url, api_key=api_key, _strict_response_validation=True)
         with client as c2:
             assert c2 is client
             assert not c2.is_closed()
@@ -652,9 +644,7 @@ class TestKthcloudGoDeployV2:
 
     def test_client_max_retries_validation(self) -> None:
         with pytest.raises(TypeError, match=r"max_retries cannot be None"):
-            KthcloudGoDeployV2(
-                base_url=base_url, api_key=api_key, _strict_response_validation=True, max_retries=cast(Any, None)
-            )
+            Kthcloud(base_url=base_url, api_key=api_key, _strict_response_validation=True, max_retries=cast(Any, None))
 
     @pytest.mark.respx(base_url=base_url)
     def test_received_text_for_expected_json(self, respx_mock: MockRouter) -> None:
@@ -663,12 +653,12 @@ class TestKthcloudGoDeployV2:
 
         respx_mock.get("/foo").mock(return_value=httpx.Response(200, text="my-custom-format"))
 
-        strict_client = KthcloudGoDeployV2(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        strict_client = Kthcloud(base_url=base_url, api_key=api_key, _strict_response_validation=True)
 
         with pytest.raises(APIResponseValidationError):
             strict_client.get("/foo", cast_to=Model)
 
-        client = KthcloudGoDeployV2(base_url=base_url, api_key=api_key, _strict_response_validation=False)
+        client = Kthcloud(base_url=base_url, api_key=api_key, _strict_response_validation=False)
 
         response = client.get("/foo", cast_to=Model)
         assert isinstance(response, str)  # type: ignore[unreachable]
@@ -695,14 +685,14 @@ class TestKthcloudGoDeployV2:
     )
     @mock.patch("time.time", mock.MagicMock(return_value=1696004797))
     def test_parse_retry_after_header(self, remaining_retries: int, retry_after: str, timeout: float) -> None:
-        client = KthcloudGoDeployV2(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        client = Kthcloud(base_url=base_url, api_key=api_key, _strict_response_validation=True)
 
         headers = httpx.Headers({"retry-after": retry_after})
         options = FinalRequestOptions(method="get", url="/foo", max_retries=3)
         calculated = client._calculate_retry_timeout(remaining_retries, options, headers)
         assert calculated == pytest.approx(timeout, 0.5 * 0.875)  # pyright: ignore[reportUnknownMemberType]
 
-    @mock.patch("kthcloud_go_deploy_v_._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("kthcloud._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
         respx_mock.post("/v2/vms").mock(side_effect=httpx.TimeoutException("Test timeout error"))
@@ -717,7 +707,7 @@ class TestKthcloudGoDeployV2:
 
         assert _get_open_connections(self.client) == 0
 
-    @mock.patch("kthcloud_go_deploy_v_._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("kthcloud._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
         respx_mock.post("/v2/vms").mock(return_value=httpx.Response(500))
@@ -733,8 +723,8 @@ class TestKthcloudGoDeployV2:
         assert _get_open_connections(self.client) == 0
 
 
-class TestAsyncKthcloudGoDeployV2:
-    client = AsyncKthcloudGoDeployV2(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+class TestAsyncKthcloud:
+    client = AsyncKthcloud(base_url=base_url, api_key=api_key, _strict_response_validation=True)
 
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.asyncio
@@ -783,7 +773,7 @@ class TestAsyncKthcloudGoDeployV2:
         assert isinstance(self.client.timeout, httpx.Timeout)
 
     def test_copy_default_headers(self) -> None:
-        client = AsyncKthcloudGoDeployV2(
+        client = AsyncKthcloud(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, default_headers={"X-Foo": "bar"}
         )
         assert client.default_headers["X-Foo"] == "bar"
@@ -817,7 +807,7 @@ class TestAsyncKthcloudGoDeployV2:
             client.copy(set_default_headers={}, default_headers={"X-Foo": "Bar"})
 
     def test_copy_default_query(self) -> None:
-        client = AsyncKthcloudGoDeployV2(
+        client = AsyncKthcloud(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, default_query={"foo": "bar"}
         )
         assert _get_params(client)["foo"] == "bar"
@@ -908,10 +898,10 @@ class TestAsyncKthcloudGoDeployV2:
                         # to_raw_response_wrapper leaks through the @functools.wraps() decorator.
                         #
                         # removing the decorator fixes the leak for reasons we don't understand.
-                        "kthcloud_go_deploy_v_/_legacy_response.py",
-                        "kthcloud_go_deploy_v_/_response.py",
+                        "kthcloud/_legacy_response.py",
+                        "kthcloud/_response.py",
                         # pydantic.BaseModel.model_dump || pydantic.BaseModel.dict leak memory for some reason.
-                        "kthcloud_go_deploy_v_/_compat.py",
+                        "kthcloud/_compat.py",
                         # Standard library leaks we don't care about.
                         "/logging/__init__.py",
                     ]
@@ -942,7 +932,7 @@ class TestAsyncKthcloudGoDeployV2:
         assert timeout == httpx.Timeout(100.0)
 
     async def test_client_timeout_option(self) -> None:
-        client = AsyncKthcloudGoDeployV2(
+        client = AsyncKthcloud(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, timeout=httpx.Timeout(0)
         )
 
@@ -953,7 +943,7 @@ class TestAsyncKthcloudGoDeployV2:
     async def test_http_client_timeout_option(self) -> None:
         # custom timeout given to the httpx client should be used
         async with httpx.AsyncClient(timeout=None) as http_client:
-            client = AsyncKthcloudGoDeployV2(
+            client = AsyncKthcloud(
                 base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client
             )
 
@@ -963,7 +953,7 @@ class TestAsyncKthcloudGoDeployV2:
 
         # no timeout given to the httpx client should not use the httpx default
         async with httpx.AsyncClient() as http_client:
-            client = AsyncKthcloudGoDeployV2(
+            client = AsyncKthcloud(
                 base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client
             )
 
@@ -973,7 +963,7 @@ class TestAsyncKthcloudGoDeployV2:
 
         # explicitly passing the default timeout currently results in it being ignored
         async with httpx.AsyncClient(timeout=HTTPX_DEFAULT_TIMEOUT) as http_client:
-            client = AsyncKthcloudGoDeployV2(
+            client = AsyncKthcloud(
                 base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client
             )
 
@@ -984,7 +974,7 @@ class TestAsyncKthcloudGoDeployV2:
     def test_invalid_http_client(self) -> None:
         with pytest.raises(TypeError, match="Invalid `http_client` arg"):
             with httpx.Client() as http_client:
-                AsyncKthcloudGoDeployV2(
+                AsyncKthcloud(
                     base_url=base_url,
                     api_key=api_key,
                     _strict_response_validation=True,
@@ -992,14 +982,14 @@ class TestAsyncKthcloudGoDeployV2:
                 )
 
     def test_default_headers_option(self) -> None:
-        client = AsyncKthcloudGoDeployV2(
+        client = AsyncKthcloud(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, default_headers={"X-Foo": "bar"}
         )
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("x-foo") == "bar"
         assert request.headers.get("x-stainless-lang") == "python"
 
-        client2 = AsyncKthcloudGoDeployV2(
+        client2 = AsyncKthcloud(
             base_url=base_url,
             api_key=api_key,
             _strict_response_validation=True,
@@ -1013,7 +1003,7 @@ class TestAsyncKthcloudGoDeployV2:
         assert request.headers.get("x-stainless-lang") == "my-overriding-header"
 
     def test_default_query_option(self) -> None:
-        client = AsyncKthcloudGoDeployV2(
+        client = AsyncKthcloud(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, default_query={"query_param": "bar"}
         )
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
@@ -1127,7 +1117,7 @@ class TestAsyncKthcloudGoDeployV2:
         params = dict(request.url.params)
         assert params == {"foo": "2"}
 
-    def test_multipart_repeating_array(self, async_client: AsyncKthcloudGoDeployV2) -> None:
+    def test_multipart_repeating_array(self, async_client: AsyncKthcloud) -> None:
         request = async_client._build_request(
             FinalRequestOptions.construct(
                 method="get",
@@ -1214,7 +1204,7 @@ class TestAsyncKthcloudGoDeployV2:
         assert response.foo == 2
 
     def test_base_url_setter(self) -> None:
-        client = AsyncKthcloudGoDeployV2(
+        client = AsyncKthcloud(
             base_url="https://example.com/from_init", api_key=api_key, _strict_response_validation=True
         )
         assert client.base_url == "https://example.com/from_init/"
@@ -1224,17 +1214,17 @@ class TestAsyncKthcloudGoDeployV2:
         assert client.base_url == "https://example.com/from_setter/"
 
     def test_base_url_env(self) -> None:
-        with update_env(KTHCLOUD_GO_DEPLOY_V2_BASE_URL="http://localhost:5000/from/env"):
-            client = AsyncKthcloudGoDeployV2(api_key=api_key, _strict_response_validation=True)
+        with update_env(KTHCLOUD_BASE_URL="http://localhost:5000/from/env"):
+            client = AsyncKthcloud(api_key=api_key, _strict_response_validation=True)
             assert client.base_url == "http://localhost:5000/from/env/"
 
     @pytest.mark.parametrize(
         "client",
         [
-            AsyncKthcloudGoDeployV2(
+            AsyncKthcloud(
                 base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True
             ),
-            AsyncKthcloudGoDeployV2(
+            AsyncKthcloud(
                 base_url="http://localhost:5000/custom/path/",
                 api_key=api_key,
                 _strict_response_validation=True,
@@ -1243,7 +1233,7 @@ class TestAsyncKthcloudGoDeployV2:
         ],
         ids=["standard", "custom http client"],
     )
-    def test_base_url_trailing_slash(self, client: AsyncKthcloudGoDeployV2) -> None:
+    def test_base_url_trailing_slash(self, client: AsyncKthcloud) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -1256,10 +1246,10 @@ class TestAsyncKthcloudGoDeployV2:
     @pytest.mark.parametrize(
         "client",
         [
-            AsyncKthcloudGoDeployV2(
+            AsyncKthcloud(
                 base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True
             ),
-            AsyncKthcloudGoDeployV2(
+            AsyncKthcloud(
                 base_url="http://localhost:5000/custom/path/",
                 api_key=api_key,
                 _strict_response_validation=True,
@@ -1268,7 +1258,7 @@ class TestAsyncKthcloudGoDeployV2:
         ],
         ids=["standard", "custom http client"],
     )
-    def test_base_url_no_trailing_slash(self, client: AsyncKthcloudGoDeployV2) -> None:
+    def test_base_url_no_trailing_slash(self, client: AsyncKthcloud) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -1281,10 +1271,10 @@ class TestAsyncKthcloudGoDeployV2:
     @pytest.mark.parametrize(
         "client",
         [
-            AsyncKthcloudGoDeployV2(
+            AsyncKthcloud(
                 base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True
             ),
-            AsyncKthcloudGoDeployV2(
+            AsyncKthcloud(
                 base_url="http://localhost:5000/custom/path/",
                 api_key=api_key,
                 _strict_response_validation=True,
@@ -1293,7 +1283,7 @@ class TestAsyncKthcloudGoDeployV2:
         ],
         ids=["standard", "custom http client"],
     )
-    def test_absolute_request_url(self, client: AsyncKthcloudGoDeployV2) -> None:
+    def test_absolute_request_url(self, client: AsyncKthcloud) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -1304,7 +1294,7 @@ class TestAsyncKthcloudGoDeployV2:
         assert request.url == "https://myapi.com/foo"
 
     async def test_copied_client_does_not_close_http(self) -> None:
-        client = AsyncKthcloudGoDeployV2(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        client = AsyncKthcloud(base_url=base_url, api_key=api_key, _strict_response_validation=True)
         assert not client.is_closed()
 
         copied = client.copy()
@@ -1316,7 +1306,7 @@ class TestAsyncKthcloudGoDeployV2:
         assert not client.is_closed()
 
     async def test_client_context_manager(self) -> None:
-        client = AsyncKthcloudGoDeployV2(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        client = AsyncKthcloud(base_url=base_url, api_key=api_key, _strict_response_validation=True)
         async with client as c2:
             assert c2 is client
             assert not c2.is_closed()
@@ -1338,7 +1328,7 @@ class TestAsyncKthcloudGoDeployV2:
 
     async def test_client_max_retries_validation(self) -> None:
         with pytest.raises(TypeError, match=r"max_retries cannot be None"):
-            AsyncKthcloudGoDeployV2(
+            AsyncKthcloud(
                 base_url=base_url, api_key=api_key, _strict_response_validation=True, max_retries=cast(Any, None)
             )
 
@@ -1350,12 +1340,12 @@ class TestAsyncKthcloudGoDeployV2:
 
         respx_mock.get("/foo").mock(return_value=httpx.Response(200, text="my-custom-format"))
 
-        strict_client = AsyncKthcloudGoDeployV2(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        strict_client = AsyncKthcloud(base_url=base_url, api_key=api_key, _strict_response_validation=True)
 
         with pytest.raises(APIResponseValidationError):
             await strict_client.get("/foo", cast_to=Model)
 
-        client = AsyncKthcloudGoDeployV2(base_url=base_url, api_key=api_key, _strict_response_validation=False)
+        client = AsyncKthcloud(base_url=base_url, api_key=api_key, _strict_response_validation=False)
 
         response = await client.get("/foo", cast_to=Model)
         assert isinstance(response, str)  # type: ignore[unreachable]
@@ -1383,14 +1373,14 @@ class TestAsyncKthcloudGoDeployV2:
     @mock.patch("time.time", mock.MagicMock(return_value=1696004797))
     @pytest.mark.asyncio
     async def test_parse_retry_after_header(self, remaining_retries: int, retry_after: str, timeout: float) -> None:
-        client = AsyncKthcloudGoDeployV2(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        client = AsyncKthcloud(base_url=base_url, api_key=api_key, _strict_response_validation=True)
 
         headers = httpx.Headers({"retry-after": retry_after})
         options = FinalRequestOptions(method="get", url="/foo", max_retries=3)
         calculated = client._calculate_retry_timeout(remaining_retries, options, headers)
         assert calculated == pytest.approx(timeout, 0.5 * 0.875)  # pyright: ignore[reportUnknownMemberType]
 
-    @mock.patch("kthcloud_go_deploy_v_._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("kthcloud._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     async def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
         respx_mock.post("/v2/vms").mock(side_effect=httpx.TimeoutException("Test timeout error"))
@@ -1405,7 +1395,7 @@ class TestAsyncKthcloudGoDeployV2:
 
         assert _get_open_connections(self.client) == 0
 
-    @mock.patch("kthcloud_go_deploy_v_._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("kthcloud._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     async def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
         respx_mock.post("/v2/vms").mock(return_value=httpx.Response(500))

@@ -81,7 +81,7 @@ HttpxRequestFiles = Union[Mapping[str, HttpxFileTypes], Sequence[Tuple[str, Http
 # This unfortunately means that you will either have
 # to import this type and pass it explicitly:
 #
-# from kthcloud_go_deploy_v_ import NoneType
+# from kthcloud import NoneType
 # client.get('/foo', cast_to=NoneType)
 #
 # or build it yourself:

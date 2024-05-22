@@ -7,9 +7,9 @@ import pytest
 import pydantic
 from pydantic import Field
 
-from kthcloud_go_deploy_v_._utils import PropertyInfo
-from kthcloud_go_deploy_v_._compat import PYDANTIC_V2, parse_obj, model_dump, model_json
-from kthcloud_go_deploy_v_._models import BaseModel, construct_type
+from kthcloud._utils import PropertyInfo
+from kthcloud._compat import PYDANTIC_V2, parse_obj, model_dump, model_json
+from kthcloud._models import BaseModel, construct_type
 
 
 class BasicModel(BaseModel):

@@ -8,13 +8,13 @@ from typing import TYPE_CHECKING
 import anyio
 
 if TYPE_CHECKING:
-    from ._client import KthcloudGoDeployV2, AsyncKthcloudGoDeployV2
+    from ._client import Kthcloud, AsyncKthcloud
 
 
 class SyncAPIResource:
-    _client: KthcloudGoDeployV2
+    _client: Kthcloud
 
-    def __init__(self, client: KthcloudGoDeployV2) -> None:
+    def __init__(self, client: Kthcloud) -> None:
         self._client = client
         self._get = client.get
         self._post = client.post
@@ -28,9 +28,9 @@ class SyncAPIResource:
 
 
 class AsyncAPIResource:
-    _client: AsyncKthcloudGoDeployV2
+    _client: AsyncKthcloud
 
-    def __init__(self, client: AsyncKthcloudGoDeployV2) -> None:
+    def __init__(self, client: AsyncKthcloud) -> None:
         self._client = client
         self._get = client.get
         self._post = client.post
