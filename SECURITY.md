@@ -16,9 +16,9 @@ before making any information public.
 ## Reporting Non-SDK Related Security Issues
 
 If you encounter security issues that are not directly related to SDKs but pertain to the services
-or products provided by Kthcloud Go Deploy V2 please follow the respective company's security reporting guidelines.
+or products provided by Kthcloud please follow the respective company's security reporting guidelines.
 
-### Kthcloud Go Deploy V2 Terms and Policies
+### Kthcloud Terms and Policies
 
 Please contact dev@cloud.cbh.kth.se for any questions or concerns regarding security of our services.
 

@@ -7,9 +7,9 @@ from typing import Any, cast
 
 import pytest
 
+from kthcloud import Kthcloud, AsyncKthcloud
 from tests.utils import assert_matches_type
-from kthcloud_go_deploy_v_ import KthcloudGoDeployV2, AsyncKthcloudGoDeployV2
-from kthcloud_go_deploy_v_.types import (
+from kthcloud.types import (
     VmRead,
     VmCreated,
     VmDeleted,
@@ -24,7 +24,7 @@ class TestVms:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @parametrize
-    def test_method_create(self, client: KthcloudGoDeployV2) -> None:
+    def test_method_create(self, client: Kthcloud) -> None:
         vm = client.vms.create(
             cpu_cores=1,
             disk_size=10,
@@ -35,7 +35,7 @@ class TestVms:
         assert_matches_type(VmCreated, vm, path=["response"])
 
     @parametrize
-    def test_method_create_with_all_params(self, client: KthcloudGoDeployV2) -> None:
+    def test_method_create_with_all_params(self, client: Kthcloud) -> None:
         vm = client.vms.create(
             cpu_cores=1,
             disk_size=10,
@@ -76,7 +76,7 @@ class TestVms:
         assert_matches_type(VmCreated, vm, path=["response"])
 
     @parametrize
-    def test_raw_response_create(self, client: KthcloudGoDeployV2) -> None:
+    def test_raw_response_create(self, client: Kthcloud) -> None:
         response = client.vms.with_raw_response.create(
             cpu_cores=1,
             disk_size=10,
@@ -91,7 +91,7 @@ class TestVms:
         assert_matches_type(VmCreated, vm, path=["response"])
 
     @parametrize
-    def test_streaming_response_create(self, client: KthcloudGoDeployV2) -> None:
+    def test_streaming_response_create(self, client: Kthcloud) -> None:
         with client.vms.with_streaming_response.create(
             cpu_cores=1,
             disk_size=10,
@@ -108,14 +108,14 @@ class TestVms:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_method_retrieve(self, client: KthcloudGoDeployV2) -> None:
+    def test_method_retrieve(self, client: Kthcloud) -> None:
         vm = client.vms.retrieve(
             "string",
         )
         assert_matches_type(VmRead, vm, path=["response"])
 
     @parametrize
-    def test_raw_response_retrieve(self, client: KthcloudGoDeployV2) -> None:
+    def test_raw_response_retrieve(self, client: Kthcloud) -> None:
         response = client.vms.with_raw_response.retrieve(
             "string",
         )
@@ -126,7 +126,7 @@ class TestVms:
         assert_matches_type(VmRead, vm, path=["response"])
 
     @parametrize
-    def test_streaming_response_retrieve(self, client: KthcloudGoDeployV2) -> None:
+    def test_streaming_response_retrieve(self, client: Kthcloud) -> None:
         with client.vms.with_streaming_response.retrieve(
             "string",
         ) as response:
@@ -139,21 +139,21 @@ class TestVms:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_retrieve(self, client: KthcloudGoDeployV2) -> None:
+    def test_path_params_retrieve(self, client: Kthcloud) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `vm_id` but received ''"):
             client.vms.with_raw_response.retrieve(
                 "",
             )
 
     @parametrize
-    def test_method_update(self, client: KthcloudGoDeployV2) -> None:
+    def test_method_update(self, client: Kthcloud) -> None:
         vm = client.vms.update(
             "string",
         )
         assert_matches_type(VmUpdated, vm, path=["response"])
 
     @parametrize
-    def test_method_update_with_all_params(self, client: KthcloudGoDeployV2) -> None:
+    def test_method_update_with_all_params(self, client: Kthcloud) -> None:
         vm = client.vms.update(
             "string",
             cpu_cores=1,
@@ -193,7 +193,7 @@ class TestVms:
         assert_matches_type(VmUpdated, vm, path=["response"])
 
     @parametrize
-    def test_raw_response_update(self, client: KthcloudGoDeployV2) -> None:
+    def test_raw_response_update(self, client: Kthcloud) -> None:
         response = client.vms.with_raw_response.update(
             "string",
         )
@@ -204,7 +204,7 @@ class TestVms:
         assert_matches_type(VmUpdated, vm, path=["response"])
 
     @parametrize
-    def test_streaming_response_update(self, client: KthcloudGoDeployV2) -> None:
+    def test_streaming_response_update(self, client: Kthcloud) -> None:
         with client.vms.with_streaming_response.update(
             "string",
         ) as response:
@@ -217,19 +217,19 @@ class TestVms:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_update(self, client: KthcloudGoDeployV2) -> None:
+    def test_path_params_update(self, client: Kthcloud) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `vm_id` but received ''"):
             client.vms.with_raw_response.update(
                 "",
             )
 
     @parametrize
-    def test_method_list(self, client: KthcloudGoDeployV2) -> None:
+    def test_method_list(self, client: Kthcloud) -> None:
         vm = client.vms.list()
         assert_matches_type(VmListResponse, vm, path=["response"])
 
     @parametrize
-    def test_method_list_with_all_params(self, client: KthcloudGoDeployV2) -> None:
+    def test_method_list_with_all_params(self, client: Kthcloud) -> None:
         vm = client.vms.list(
             all=True,
             page=0,
@@ -239,7 +239,7 @@ class TestVms:
         assert_matches_type(VmListResponse, vm, path=["response"])
 
     @parametrize
-    def test_raw_response_list(self, client: KthcloudGoDeployV2) -> None:
+    def test_raw_response_list(self, client: Kthcloud) -> None:
         response = client.vms.with_raw_response.list()
 
         assert response.is_closed is True
@@ -248,7 +248,7 @@ class TestVms:
         assert_matches_type(VmListResponse, vm, path=["response"])
 
     @parametrize
-    def test_streaming_response_list(self, client: KthcloudGoDeployV2) -> None:
+    def test_streaming_response_list(self, client: Kthcloud) -> None:
         with client.vms.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -259,14 +259,14 @@ class TestVms:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_method_delete(self, client: KthcloudGoDeployV2) -> None:
+    def test_method_delete(self, client: Kthcloud) -> None:
         vm = client.vms.delete(
             "string",
         )
         assert_matches_type(VmDeleted, vm, path=["response"])
 
     @parametrize
-    def test_raw_response_delete(self, client: KthcloudGoDeployV2) -> None:
+    def test_raw_response_delete(self, client: Kthcloud) -> None:
         response = client.vms.with_raw_response.delete(
             "string",
         )
@@ -277,7 +277,7 @@ class TestVms:
         assert_matches_type(VmDeleted, vm, path=["response"])
 
     @parametrize
-    def test_streaming_response_delete(self, client: KthcloudGoDeployV2) -> None:
+    def test_streaming_response_delete(self, client: Kthcloud) -> None:
         with client.vms.with_streaming_response.delete(
             "string",
         ) as response:
@@ -290,7 +290,7 @@ class TestVms:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_delete(self, client: KthcloudGoDeployV2) -> None:
+    def test_path_params_delete(self, client: Kthcloud) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `vm_id` but received ''"):
             client.vms.with_raw_response.delete(
                 "",
@@ -301,7 +301,7 @@ class TestAsyncVms:
     parametrize = pytest.mark.parametrize("async_client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @parametrize
-    async def test_method_create(self, async_client: AsyncKthcloudGoDeployV2) -> None:
+    async def test_method_create(self, async_client: AsyncKthcloud) -> None:
         vm = await async_client.vms.create(
             cpu_cores=1,
             disk_size=10,
@@ -312,7 +312,7 @@ class TestAsyncVms:
         assert_matches_type(VmCreated, vm, path=["response"])
 
     @parametrize
-    async def test_method_create_with_all_params(self, async_client: AsyncKthcloudGoDeployV2) -> None:
+    async def test_method_create_with_all_params(self, async_client: AsyncKthcloud) -> None:
         vm = await async_client.vms.create(
             cpu_cores=1,
             disk_size=10,
@@ -353,7 +353,7 @@ class TestAsyncVms:
         assert_matches_type(VmCreated, vm, path=["response"])
 
     @parametrize
-    async def test_raw_response_create(self, async_client: AsyncKthcloudGoDeployV2) -> None:
+    async def test_raw_response_create(self, async_client: AsyncKthcloud) -> None:
         response = await async_client.vms.with_raw_response.create(
             cpu_cores=1,
             disk_size=10,
@@ -368,7 +368,7 @@ class TestAsyncVms:
         assert_matches_type(VmCreated, vm, path=["response"])
 
     @parametrize
-    async def test_streaming_response_create(self, async_client: AsyncKthcloudGoDeployV2) -> None:
+    async def test_streaming_response_create(self, async_client: AsyncKthcloud) -> None:
         async with async_client.vms.with_streaming_response.create(
             cpu_cores=1,
             disk_size=10,
@@ -385,14 +385,14 @@ class TestAsyncVms:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_method_retrieve(self, async_client: AsyncKthcloudGoDeployV2) -> None:
+    async def test_method_retrieve(self, async_client: AsyncKthcloud) -> None:
         vm = await async_client.vms.retrieve(
             "string",
         )
         assert_matches_type(VmRead, vm, path=["response"])
 
     @parametrize
-    async def test_raw_response_retrieve(self, async_client: AsyncKthcloudGoDeployV2) -> None:
+    async def test_raw_response_retrieve(self, async_client: AsyncKthcloud) -> None:
         response = await async_client.vms.with_raw_response.retrieve(
             "string",
         )
@@ -403,7 +403,7 @@ class TestAsyncVms:
         assert_matches_type(VmRead, vm, path=["response"])
 
     @parametrize
-    async def test_streaming_response_retrieve(self, async_client: AsyncKthcloudGoDeployV2) -> None:
+    async def test_streaming_response_retrieve(self, async_client: AsyncKthcloud) -> None:
         async with async_client.vms.with_streaming_response.retrieve(
             "string",
         ) as response:
@@ -416,21 +416,21 @@ class TestAsyncVms:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_retrieve(self, async_client: AsyncKthcloudGoDeployV2) -> None:
+    async def test_path_params_retrieve(self, async_client: AsyncKthcloud) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `vm_id` but received ''"):
             await async_client.vms.with_raw_response.retrieve(
                 "",
             )
 
     @parametrize
-    async def test_method_update(self, async_client: AsyncKthcloudGoDeployV2) -> None:
+    async def test_method_update(self, async_client: AsyncKthcloud) -> None:
         vm = await async_client.vms.update(
             "string",
         )
         assert_matches_type(VmUpdated, vm, path=["response"])
 
     @parametrize
-    async def test_method_update_with_all_params(self, async_client: AsyncKthcloudGoDeployV2) -> None:
+    async def test_method_update_with_all_params(self, async_client: AsyncKthcloud) -> None:
         vm = await async_client.vms.update(
             "string",
             cpu_cores=1,
@@ -470,7 +470,7 @@ class TestAsyncVms:
         assert_matches_type(VmUpdated, vm, path=["response"])
 
     @parametrize
-    async def test_raw_response_update(self, async_client: AsyncKthcloudGoDeployV2) -> None:
+    async def test_raw_response_update(self, async_client: AsyncKthcloud) -> None:
         response = await async_client.vms.with_raw_response.update(
             "string",
         )
@@ -481,7 +481,7 @@ class TestAsyncVms:
         assert_matches_type(VmUpdated, vm, path=["response"])
 
     @parametrize
-    async def test_streaming_response_update(self, async_client: AsyncKthcloudGoDeployV2) -> None:
+    async def test_streaming_response_update(self, async_client: AsyncKthcloud) -> None:
         async with async_client.vms.with_streaming_response.update(
             "string",
         ) as response:
@@ -494,19 +494,19 @@ class TestAsyncVms:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_update(self, async_client: AsyncKthcloudGoDeployV2) -> None:
+    async def test_path_params_update(self, async_client: AsyncKthcloud) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `vm_id` but received ''"):
             await async_client.vms.with_raw_response.update(
                 "",
             )
 
     @parametrize
-    async def test_method_list(self, async_client: AsyncKthcloudGoDeployV2) -> None:
+    async def test_method_list(self, async_client: AsyncKthcloud) -> None:
         vm = await async_client.vms.list()
         assert_matches_type(VmListResponse, vm, path=["response"])
 
     @parametrize
-    async def test_method_list_with_all_params(self, async_client: AsyncKthcloudGoDeployV2) -> None:
+    async def test_method_list_with_all_params(self, async_client: AsyncKthcloud) -> None:
         vm = await async_client.vms.list(
             all=True,
             page=0,
@@ -516,7 +516,7 @@ class TestAsyncVms:
         assert_matches_type(VmListResponse, vm, path=["response"])
 
     @parametrize
-    async def test_raw_response_list(self, async_client: AsyncKthcloudGoDeployV2) -> None:
+    async def test_raw_response_list(self, async_client: AsyncKthcloud) -> None:
         response = await async_client.vms.with_raw_response.list()
 
         assert response.is_closed is True
@@ -525,7 +525,7 @@ class TestAsyncVms:
         assert_matches_type(VmListResponse, vm, path=["response"])
 
     @parametrize
-    async def test_streaming_response_list(self, async_client: AsyncKthcloudGoDeployV2) -> None:
+    async def test_streaming_response_list(self, async_client: AsyncKthcloud) -> None:
         async with async_client.vms.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -536,14 +536,14 @@ class TestAsyncVms:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_method_delete(self, async_client: AsyncKthcloudGoDeployV2) -> None:
+    async def test_method_delete(self, async_client: AsyncKthcloud) -> None:
         vm = await async_client.vms.delete(
             "string",
         )
         assert_matches_type(VmDeleted, vm, path=["response"])
 
     @parametrize
-    async def test_raw_response_delete(self, async_client: AsyncKthcloudGoDeployV2) -> None:
+    async def test_raw_response_delete(self, async_client: AsyncKthcloud) -> None:
         response = await async_client.vms.with_raw_response.delete(
             "string",
         )
@@ -554,7 +554,7 @@ class TestAsyncVms:
         assert_matches_type(VmDeleted, vm, path=["response"])
 
     @parametrize
-    async def test_streaming_response_delete(self, async_client: AsyncKthcloudGoDeployV2) -> None:
+    async def test_streaming_response_delete(self, async_client: AsyncKthcloud) -> None:
         async with async_client.vms.with_streaming_response.delete(
             "string",
         ) as response:
@@ -567,7 +567,7 @@ class TestAsyncVms:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_delete(self, async_client: AsyncKthcloudGoDeployV2) -> None:
+    async def test_path_params_delete(self, async_client: AsyncKthcloud) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `vm_id` but received ''"):
             await async_client.vms.with_raw_response.delete(
                 "",

@@ -7,9 +7,9 @@ from typing import Any, cast
 
 import pytest
 
+from kthcloud import Kthcloud, AsyncKthcloud
 from tests.utils import assert_matches_type
-from kthcloud_go_deploy_v_ import KthcloudGoDeployV2, AsyncKthcloudGoDeployV2
-from kthcloud_go_deploy_v_.types import GPUGroup, GPUGroupListResponse
+from kthcloud.types import GPUGroup, GPUGroupListResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -18,14 +18,14 @@ class TestGPUGroups:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @parametrize
-    def test_method_retrieve(self, client: KthcloudGoDeployV2) -> None:
+    def test_method_retrieve(self, client: Kthcloud) -> None:
         gpu_group = client.gpu_groups.retrieve(
             "string",
         )
         assert_matches_type(GPUGroup, gpu_group, path=["response"])
 
     @parametrize
-    def test_raw_response_retrieve(self, client: KthcloudGoDeployV2) -> None:
+    def test_raw_response_retrieve(self, client: Kthcloud) -> None:
         response = client.gpu_groups.with_raw_response.retrieve(
             "string",
         )
@@ -36,7 +36,7 @@ class TestGPUGroups:
         assert_matches_type(GPUGroup, gpu_group, path=["response"])
 
     @parametrize
-    def test_streaming_response_retrieve(self, client: KthcloudGoDeployV2) -> None:
+    def test_streaming_response_retrieve(self, client: Kthcloud) -> None:
         with client.gpu_groups.with_streaming_response.retrieve(
             "string",
         ) as response:
@@ -49,19 +49,19 @@ class TestGPUGroups:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_retrieve(self, client: KthcloudGoDeployV2) -> None:
+    def test_path_params_retrieve(self, client: Kthcloud) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `gpu_group_id` but received ''"):
             client.gpu_groups.with_raw_response.retrieve(
                 "",
             )
 
     @parametrize
-    def test_method_list(self, client: KthcloudGoDeployV2) -> None:
+    def test_method_list(self, client: Kthcloud) -> None:
         gpu_group = client.gpu_groups.list()
         assert_matches_type(GPUGroupListResponse, gpu_group, path=["response"])
 
     @parametrize
-    def test_method_list_with_all_params(self, client: KthcloudGoDeployV2) -> None:
+    def test_method_list_with_all_params(self, client: Kthcloud) -> None:
         gpu_group = client.gpu_groups.list(
             page=0,
             page_size=0,
@@ -69,7 +69,7 @@ class TestGPUGroups:
         assert_matches_type(GPUGroupListResponse, gpu_group, path=["response"])
 
     @parametrize
-    def test_raw_response_list(self, client: KthcloudGoDeployV2) -> None:
+    def test_raw_response_list(self, client: Kthcloud) -> None:
         response = client.gpu_groups.with_raw_response.list()
 
         assert response.is_closed is True
@@ -78,7 +78,7 @@ class TestGPUGroups:
         assert_matches_type(GPUGroupListResponse, gpu_group, path=["response"])
 
     @parametrize
-    def test_streaming_response_list(self, client: KthcloudGoDeployV2) -> None:
+    def test_streaming_response_list(self, client: Kthcloud) -> None:
         with client.gpu_groups.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -93,14 +93,14 @@ class TestAsyncGPUGroups:
     parametrize = pytest.mark.parametrize("async_client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @parametrize
-    async def test_method_retrieve(self, async_client: AsyncKthcloudGoDeployV2) -> None:
+    async def test_method_retrieve(self, async_client: AsyncKthcloud) -> None:
         gpu_group = await async_client.gpu_groups.retrieve(
             "string",
         )
         assert_matches_type(GPUGroup, gpu_group, path=["response"])
 
     @parametrize
-    async def test_raw_response_retrieve(self, async_client: AsyncKthcloudGoDeployV2) -> None:
+    async def test_raw_response_retrieve(self, async_client: AsyncKthcloud) -> None:
         response = await async_client.gpu_groups.with_raw_response.retrieve(
             "string",
         )
@@ -111,7 +111,7 @@ class TestAsyncGPUGroups:
         assert_matches_type(GPUGroup, gpu_group, path=["response"])
 
     @parametrize
-    async def test_streaming_response_retrieve(self, async_client: AsyncKthcloudGoDeployV2) -> None:
+    async def test_streaming_response_retrieve(self, async_client: AsyncKthcloud) -> None:
         async with async_client.gpu_groups.with_streaming_response.retrieve(
             "string",
         ) as response:
@@ -124,19 +124,19 @@ class TestAsyncGPUGroups:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_retrieve(self, async_client: AsyncKthcloudGoDeployV2) -> None:
+    async def test_path_params_retrieve(self, async_client: AsyncKthcloud) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `gpu_group_id` but received ''"):
             await async_client.gpu_groups.with_raw_response.retrieve(
                 "",
             )
 
     @parametrize
-    async def test_method_list(self, async_client: AsyncKthcloudGoDeployV2) -> None:
+    async def test_method_list(self, async_client: AsyncKthcloud) -> None:
         gpu_group = await async_client.gpu_groups.list()
         assert_matches_type(GPUGroupListResponse, gpu_group, path=["response"])
 
     @parametrize
-    async def test_method_list_with_all_params(self, async_client: AsyncKthcloudGoDeployV2) -> None:
+    async def test_method_list_with_all_params(self, async_client: AsyncKthcloud) -> None:
         gpu_group = await async_client.gpu_groups.list(
             page=0,
             page_size=0,
@@ -144,7 +144,7 @@ class TestAsyncGPUGroups:
         assert_matches_type(GPUGroupListResponse, gpu_group, path=["response"])
 
     @parametrize
-    async def test_raw_response_list(self, async_client: AsyncKthcloudGoDeployV2) -> None:
+    async def test_raw_response_list(self, async_client: AsyncKthcloud) -> None:
         response = await async_client.gpu_groups.with_raw_response.list()
 
         assert response.is_closed is True
@@ -153,7 +153,7 @@ class TestAsyncGPUGroups:
         assert_matches_type(GPUGroupListResponse, gpu_group, path=["response"])
 
     @parametrize
-    async def test_streaming_response_list(self, async_client: AsyncKthcloudGoDeployV2) -> None:
+    async def test_streaming_response_list(self, async_client: AsyncKthcloud) -> None:
         async with async_client.gpu_groups.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

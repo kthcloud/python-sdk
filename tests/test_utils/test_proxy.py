@@ -2,7 +2,7 @@ import operator
 from typing import Any
 from typing_extensions import override
 
-from kthcloud_go_deploy_v_._utils import LazyProxy
+from kthcloud._utils import LazyProxy
 
 
 class RecursiveLazyProxy(LazyProxy[Any]):

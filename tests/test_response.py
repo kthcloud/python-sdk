@@ -6,8 +6,8 @@ import httpx
 import pytest
 import pydantic
 
-from kthcloud_go_deploy_v_ import BaseModel, KthcloudGoDeployV2, AsyncKthcloudGoDeployV2
-from kthcloud_go_deploy_v_._response import (
+from kthcloud import Kthcloud, BaseModel, AsyncKthcloud
+from kthcloud._response import (
     APIResponse,
     BaseAPIResponse,
     AsyncAPIResponse,
@@ -15,8 +15,8 @@ from kthcloud_go_deploy_v_._response import (
     AsyncBinaryAPIResponse,
     extract_response_type,
 )
-from kthcloud_go_deploy_v_._streaming import Stream
-from kthcloud_go_deploy_v_._base_client import FinalRequestOptions
+from kthcloud._streaming import Stream
+from kthcloud._base_client import FinalRequestOptions
 
 
 class ConcreteBaseAPIResponse(APIResponse[bytes]):
@@ -40,7 +40,7 @@ def test_extract_response_type_direct_classes() -> None:
 def test_extract_response_type_direct_class_missing_type_arg() -> None:
     with pytest.raises(
         RuntimeError,
-        match="Expected type <class 'kthcloud_go_deploy_v_._response.AsyncAPIResponse'> to have a type argument at index 0 but it did not",
+        match="Expected type <class 'kthcloud._response.AsyncAPIResponse'> to have a type argument at index 0 but it did not",
     ):
         extract_response_type(AsyncAPIResponse)
 
@@ -60,7 +60,7 @@ class PydanticModel(pydantic.BaseModel):
     ...
 
 
-def test_response_parse_mismatched_basemodel(client: KthcloudGoDeployV2) -> None:
+def test_response_parse_mismatched_basemodel(client: Kthcloud) -> None:
     response = APIResponse(
         raw=httpx.Response(200, content=b"foo"),
         client=client,
@@ -72,13 +72,13 @@ def test_response_parse_mismatched_basemodel(client: KthcloudGoDeployV2) -> None
 
     with pytest.raises(
         TypeError,
-        match="Pydantic models must subclass our base model type, e.g. `from kthcloud_go_deploy_v_ import BaseModel`",
+        match="Pydantic models must subclass our base model type, e.g. `from kthcloud import BaseModel`",
     ):
         response.parse(to=PydanticModel)
 
 
 @pytest.mark.asyncio
-async def test_async_response_parse_mismatched_basemodel(async_client: AsyncKthcloudGoDeployV2) -> None:
+async def test_async_response_parse_mismatched_basemodel(async_client: AsyncKthcloud) -> None:
     response = AsyncAPIResponse(
         raw=httpx.Response(200, content=b"foo"),
         client=async_client,
@@ -90,12 +90,12 @@ async def test_async_response_parse_mismatched_basemodel(async_client: AsyncKthc
 
     with pytest.raises(
         TypeError,
-        match="Pydantic models must subclass our base model type, e.g. `from kthcloud_go_deploy_v_ import BaseModel`",
+        match="Pydantic models must subclass our base model type, e.g. `from kthcloud import BaseModel`",
     ):
         await response.parse(to=PydanticModel)
 
 
-def test_response_parse_custom_stream(client: KthcloudGoDeployV2) -> None:
+def test_response_parse_custom_stream(client: Kthcloud) -> None:
     response = APIResponse(
         raw=httpx.Response(200, content=b"foo"),
         client=client,
@@ -110,7 +110,7 @@ def test_response_parse_custom_stream(client: KthcloudGoDeployV2) -> None:
 
 
 @pytest.mark.asyncio
-async def test_async_response_parse_custom_stream(async_client: AsyncKthcloudGoDeployV2) -> None:
+async def test_async_response_parse_custom_stream(async_client: AsyncKthcloud) -> None:
     response = AsyncAPIResponse(
         raw=httpx.Response(200, content=b"foo"),
         client=async_client,
@@ -129,7 +129,7 @@ class CustomModel(BaseModel):
     bar: int
 
 
-def test_response_parse_custom_model(client: KthcloudGoDeployV2) -> None:
+def test_response_parse_custom_model(client: Kthcloud) -> None:
     response = APIResponse(
         raw=httpx.Response(200, content=json.dumps({"foo": "hello!", "bar": 2})),
         client=client,
@@ -145,7 +145,7 @@ def test_response_parse_custom_model(client: KthcloudGoDeployV2) -> None:
 
 
 @pytest.mark.asyncio
-async def test_async_response_parse_custom_model(async_client: AsyncKthcloudGoDeployV2) -> None:
+async def test_async_response_parse_custom_model(async_client: AsyncKthcloud) -> None:
     response = AsyncAPIResponse(
         raw=httpx.Response(200, content=json.dumps({"foo": "hello!", "bar": 2})),
         client=async_client,
@@ -160,7 +160,7 @@ async def test_async_response_parse_custom_model(async_client: AsyncKthcloudGoDe
     assert obj.bar == 2
 
 
-def test_response_parse_annotated_type(client: KthcloudGoDeployV2) -> None:
+def test_response_parse_annotated_type(client: Kthcloud) -> None:
     response = APIResponse(
         raw=httpx.Response(200, content=json.dumps({"foo": "hello!", "bar": 2})),
         client=client,
@@ -177,7 +177,7 @@ def test_response_parse_annotated_type(client: KthcloudGoDeployV2) -> None:
     assert obj.bar == 2
 
 
-async def test_async_response_parse_annotated_type(async_client: AsyncKthcloudGoDeployV2) -> None:
+async def test_async_response_parse_annotated_type(async_client: AsyncKthcloud) -> None:
     response = AsyncAPIResponse(
         raw=httpx.Response(200, content=json.dumps({"foo": "hello!", "bar": 2})),
         client=async_client,
