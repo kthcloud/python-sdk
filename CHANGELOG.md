@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.6.0-alpha (2024-05-31)
+
+Full Changelog: [v0.5.0-alpha...v0.6.0-alpha](https://github.com/kthcloud/python-sdk/compare/v0.5.0-alpha...v0.6.0-alpha)
+
+### Features
+
+* **api:** update via SDK Studio ([#21](https://github.com/kthcloud/python-sdk/issues/21)) ([082fb71](https://github.com/kthcloud/python-sdk/commit/082fb71bf2ad96009c2f433b1e0f92f8d28b998f))
+
 ## 0.5.0-alpha (2024-05-22)
 
 Full Changelog: [v0.4.0-alpha...v0.5.0-alpha](https://github.com/kthcloud/python-sdk/compare/v0.4.0-alpha...v0.5.0-alpha)
